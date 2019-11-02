@@ -13,12 +13,28 @@ export default class Login extends Component {
         password: PASSWORD,
         errors: []
     }
+    loginHandler() {
+        const { navigation } = this.props;
+        const { email, password } = this.state;
+        const errors = [];
+        Keyboard.dismiss();
+
+        if (email !== EMAIL) {
+            errors.push('email')
+        }
+        if (password !== PASSWORD){
+            errors.push('password')
+        }
+        if (!errors.length) {
+            navigation.navigate("Welcome")
+        }
+    }
     render() {
         const { navigation } = this.props;
         const { loading, errors } = this.state;
         return (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
-                <Block>
+                <Block padding={[0, theme.sizes.base * 2]}>
                     <Text h1 bold>Login</Text>
                     <Block middle>
                         <Input
@@ -33,7 +49,7 @@ export default class Login extends Component {
                             defaultValue={this.state.password}
                             onChangeText={text => this.setState({ password: text })}
                         />
-                        <Button gradient >
+                        <Button gradient onPress={() => this.loginHandler()}>
                             {loading ?
                                 <ActivityIndicator size="small" color="white" /> :
                                 <Text bold white center>Login</Text>
