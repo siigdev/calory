@@ -1,19 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {Component} from 'react';
+import Navigation from './navigation';
+import { Block } from './components';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app123!</Text>
-    </View>
-  );
+const images = [
+  require('./assets/icons/icon.png')
+]
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Block>
+        <Navigation />
+      </Block>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
