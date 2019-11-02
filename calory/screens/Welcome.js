@@ -15,7 +15,7 @@ export default class Welcome extends Component {
                     <Button gradient onPress={() => navigation.navigate('Login')}>
                         <Text center semibold white>Login</Text>
                     </Button>
-                    <Button shadow onPress={() => navigation.navigate('SignUp')}>
+                    <Button shadow onPress={() => navigation.navigate('Signup')}>
                         <Text center semibold>Signup</Text>
                     </Button>
                     <Button onPress={() => this.setState({ showTerms: true })}>

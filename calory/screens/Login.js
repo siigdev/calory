@@ -44,6 +44,7 @@ export default class Login extends Component {
                             onChangeText={text => this.setState({ email: text })}
                         />
                         <Input
+                            secureTextEntry={true}
                             label="Password"
                             style={[styles.input]}
                             defaultValue={this.state.password}
@@ -74,7 +75,8 @@ const styles = StyleSheet.create({
     input: {
         borderRadius: 0,
         borderWidth: 0,
-        borderBottomColor: theme.colors.black,
+        borderBottomColor: theme.colors.gray,
+        borderBottomWidth: 1
     },
     hasErrors: {
         borderBottomColor: theme.colors.black,
