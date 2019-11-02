@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Block, Text } from '../components';
+import { StyleSheet } from 'react-native';
 import { theme } from '../constants';
 
 export default class Welcome extends Component {
@@ -15,7 +16,7 @@ export default class Welcome extends Component {
                     <Button gradient onPress={() => navigation.navigate('Login')}>
                         <Text center semibold white>Login</Text>
                     </Button>
-                    <Button shadow onPress={() => navigation.navigate('Signup')}>
+                    <Button style={[styles.button]} onPress={() => navigation.navigate('Signup')}>
                         <Text center semibold>Signup</Text>
                     </Button>
                     <Button onPress={() => this.setState({ showTerms: true })}>
@@ -26,3 +27,10 @@ export default class Welcome extends Component {
         )
     }
 }
+const styles = StyleSheet.create({
+    button: {
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: theme.colors.gray
+    }
+})  

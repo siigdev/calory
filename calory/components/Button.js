@@ -15,14 +15,12 @@ class Button extends Component {
       end,
       start,
       locations,
-      shadow,
       children,
       ...props
     } = this.props;
 
     const buttonStyles = [
       styles.button,
-      shadow && styles.shadow,
       color && styles[color], // predefined styles colors for backgroundColor
       color && !styles[color] && { backgroundColor: color }, // custom backgroundColor
       style,
@@ -78,12 +76,6 @@ const styles = StyleSheet.create({
     height: theme.sizes.base * 3,
     justifyContent: 'center',
     marginVertical: theme.sizes.padding / 3,
-  },
-  shadow: {
-    shadowColor: theme.colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
   },
   accent: { backgroundColor: theme.colors.accent, },
   primary: { backgroundColor: theme.colors.primary, },
