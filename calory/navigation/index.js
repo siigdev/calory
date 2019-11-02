@@ -5,12 +5,14 @@ import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 import Signup from '../screens/Signup';
 import Main from '../screens/Main';
+import Settings from '../screens/Settings';
 
 const screens = createStackNavigator({
     Welcome,
     Login,
     Signup,
-    Main
+    Main,
+    Settings
 })
 
 export default createAppContainer(screens);

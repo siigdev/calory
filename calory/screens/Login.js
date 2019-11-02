@@ -56,7 +56,7 @@ export default class Login extends Component {
                                 <Text bold white center>Login</Text>
                             }
                         </Button>
-                        <Button onPress={() => navigation.navigate('Forgot')}>
+                        <Button onPress={() => navigation.navigate('Settings')}>
                             <Text gray caption center>
                                 Forgot your password?
               </Text>
