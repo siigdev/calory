@@ -13,6 +13,7 @@ export default class Settings extends Component {
         username: "RANDOM",
         weight: 75,
         height: 180,
+        newsletter: true,
         errors: []
     }
     render() {
@@ -33,6 +34,7 @@ export default class Settings extends Component {
                         <Slider
                             minimumValue={50}
                             maximumValue={150}
+                            step={1}
                             style={{ height: 19 }}
                             thumbStyle={styles.thumb}
                             trackStyle={{ height: 6, borderRadius: 6 }}
@@ -41,18 +43,34 @@ export default class Settings extends Component {
                             value={this.state.weight}
                             onValueChange={value => this.setState({ weight: value })}
                         />
-                        <Text caption gray right>150kg</Text>
+                        <Text caption gray right>{this.state.weight}kg</Text>
+                        <Text gray2 style={{ marginBottom: 10 }}>Height</Text>
+                        <Slider
+                            minimumValue={100}
+                            maximumValue={220}
+                            step={1}
+                            style={{ height: 19 }}
+                            thumbStyle={styles.thumb}
+                            trackStyle={{ height: 6, borderRadius: 6 }}
+                            minimumTrackTintColor={theme.colors.secondary}
+                            maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
+                            value={this.state.height}
+                            onValueChange={value => this.setState({ height: value })}
+                        />
+                        <Text caption gray right>{this.state.height}cm</Text>
                         <Button gradient onPress={() => this.loginHandler()}>
                             {loading ?
                                 <ActivityIndicator size="small" color="white" /> :
                                 <Text bold white center>Login</Text>
                             }
                         </Button>
-                        <Button onPress={() => navigation.navigate('Settings')}>
-                            <Text gray caption center>
-                                Forgot your password?
-                                  </Text>
-                        </Button>
+                        <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
+                            <Text gray2>Newsletter</Text>
+                            <Switch
+                                value={this.state.newsletter}
+                                onValueChange={value => this.setState({ newsletter: value })}
+                            />
+                        </Block>
                     </Block>
                 </Block>
             </ScrollView>
