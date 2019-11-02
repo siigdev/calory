@@ -22,7 +22,7 @@ export default class Login extends Component {
         if (email !== EMAIL) {
             errors.push('email')
         }
-        if (password !== PASSWORD){
+        if (password !== PASSWORD) {
             errors.push('password')
         }
         if (!errors.length) {
@@ -54,6 +54,11 @@ export default class Login extends Component {
                                 <ActivityIndicator size="small" color="white" /> :
                                 <Text bold white center>Login</Text>
                             }
+                        </Button>
+                        <Button onPress={() => navigation.navigate('Forgot')}>
+                            <Text gray caption center>
+                                Forgot your password?
+              </Text>
                         </Button>
                     </Block>
                 </Block>
