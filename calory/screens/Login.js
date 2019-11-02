@@ -26,7 +26,7 @@ export default class Login extends Component {
             errors.push('password')
         }
         if (!errors.length) {
-            navigation.navigate("Welcome")
+            navigation.navigate("Main")
         }
     }
     render() {

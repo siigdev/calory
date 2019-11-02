@@ -3,10 +3,12 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
+import Main from '../screens/Main';
 
 const screens = createStackNavigator({
     Welcome,
-    Login
+    Login,
+    Main
 })
 
 export default createAppContainer(screens);

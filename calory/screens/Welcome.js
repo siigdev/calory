@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 import { Button, Block, Text } from '../components';
-import { Animated, Dimensions, Image, FlatList, Modal, StyleSheet, ScrollView } from 'react-native';
 import { theme } from '../constants';
 
-const { width, height } = Dimensions.get('window');
-
-class Welcome extends Component {
-
+export default class Welcome extends Component {
     render() {
         const { navigation } = this.props;
         return (
             <Block>
                 <Block center bottom flex={0.4}>
-                    <Text h1 center bold>Your home. <Text h1 primary>Greener.</Text></Text>
-                    <Text h3 gray2>Enjoy the experience</Text>
+                    <Text h1 center bold>Keep track of your <Text h1 primary>Calory.</Text></Text>
+                    <Text h3 gray2>Estimate required workout</Text>
                 </Block>
                 <Block middle flex={0.5} margin={[0, theme.sizes.padding * 2]}>
                     <Button gradient onPress={() => navigation.navigate('Login')}>
@@ -30,5 +26,3 @@ class Welcome extends Component {
         )
     }
 }
-
-export default Welcome;
