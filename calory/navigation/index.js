@@ -18,32 +18,35 @@ const authLoadingScreen = createStackNavigator({
 const authScreens = createStackNavigator({
     Welcome: {
         screen: Welcome,
-        navigationOptions: {
-            backgroundColor: theme.colors.white,
-        }
     },
     Login: {
         screen: Login,
         navigationOptions: {
             headerTitle: <Text h1 bold>Login</Text>,
-            backgroundColor: theme.colors.white,
         },
     },
     Signup: {
         screen: Signup,
         navigationOptions: {
             headerTitle: <Text h1 bold>Sign Up</Text>,
-            backgroundColor: theme.colors.white,
         },
     },
+},{
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: theme.colors.white,
+            shadowColor: "Transparent",
+            elevation: 0,
+            shadowRadius: 0,
+            borderBottomColor: "transparent",
+        }
+    }
 })
 
 const screens = createStackNavigator({
-
     Main: {
         screen: Main,
         navigationOptions: {
-            backgroundColor: theme.colors.gray3,
             headerLeft: null,
         }
     },
@@ -51,12 +54,12 @@ const screens = createStackNavigator({
         screen: Settings,
         navigationOptions: {
             headerTitle: <Text h1 bold>Settings</Text>,
-            backgroundColor: theme.colors.white,
         },
     },
 }, {
     defaultNavigationOptions: {
         headerStyle: {
+            backgroundColor: theme.colors.gray3,
             shadowColor: "Transparent",
             elevation: 0,
             shadowRadius: 0,
