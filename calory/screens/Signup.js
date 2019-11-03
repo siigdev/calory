@@ -39,8 +39,7 @@ export default class Signup extends Component {
           }
     }
     render() {
-        const { navigation } = this.props;
-        const { loading, errors } = this.state;
+        const { loading } = this.state;
         return (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
                 <Block padding={[0, theme.sizes.base * 2]}>

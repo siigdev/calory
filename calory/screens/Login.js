@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { AsyncStorage, ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Block, Text, Input, Button } from '../components'
 
 import { theme } from '../constants';
@@ -13,6 +13,11 @@ export default class Login extends Component {
         password: PASSWORD,
         errors: []
     }
+    _signInAsync = async () => {
+        const { navigation } = this.props;
+        await AsyncStorage.setItem('userToken', 'abc');
+        navigation.navigate("App");
+    };
     loginHandler() {
         const { navigation } = this.props;
         const { email, password } = this.state;
@@ -26,7 +31,8 @@ export default class Login extends Component {
             errors.push('password')
         }
         if (!errors.length) {
-            navigation.navigate("Main")
+            this._signInAsync();
+            navigation.navigate("App")
         }
     }
     render() {
@@ -49,7 +55,7 @@ export default class Login extends Component {
                             defaultValue={this.state.password}
                             onChangeText={text => this.setState({ password: text })}
                         />
-                        <Button gradient onPress={() => this.loginHandler()}>
+                        <Button gradient onPress={this._signInAsync}>
                             {loading ?
                                 <ActivityIndicator size="small" color="white" /> :
                                 <Text bold white center>Login</Text>

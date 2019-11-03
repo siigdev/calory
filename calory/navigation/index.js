@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 import Signup from '../screens/Signup';
 import Main from '../screens/Main';
 import Settings from '../screens/Settings';
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import { theme } from '../constants';
-import { Text } from '../components';
+import { Text, Button } from '../components';
 
-const screens = createStackNavigator({
+const authLoadingScreen = createStackNavigator({
+    AuthLoadingScreen: {
+        screen: AuthLoadingScreen
+    }
+});
+const authScreens = createStackNavigator({
     Welcome: {
         screen: Welcome,
         navigationOptions: {
@@ -30,11 +36,15 @@ const screens = createStackNavigator({
             backgroundColor: theme.colors.white,
         },
     },
+})
+
+const screens = createStackNavigator({
+
     Main: {
         screen: Main,
         navigationOptions: {
             backgroundColor: theme.colors.gray3,
-            headerLeft: null
+            headerLeft: null,
         }
     },
     Settings: {
@@ -55,4 +65,13 @@ const screens = createStackNavigator({
     }
 })
 
-export default createAppContainer(screens);
+export default createAppContainer(createSwitchNavigator(
+    {
+        AuthLoading: authLoadingScreen,
+        App: screens,
+        Auth: authScreens,
+    },
+    {
+        initialRouteName: 'AuthLoading',
+    })
+);

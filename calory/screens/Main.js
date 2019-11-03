@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { Block, Text, Card } from '../components';
-import { ScrollView, StyleSheet } from 'react-native'
+import { Block, Text, Card, Button } from '../components';
+import { AsyncStorage, ScrollView, StyleSheet } from 'react-native'
 import { CircularProgress } from 'react-native-circular-progress';
 
 import { theme } from '../constants';
 
 export default class Main extends Component {
+    _signOutAsync = async () => {
+        const { navigation } = this.props;
+        await AsyncStorage.clear();
+        navigation.navigate('Welcome');
+      };
     render() {
         return (
             <ScrollView style={styles.trip} showsVerticalScrollIndicator={false}>
@@ -31,6 +36,7 @@ export default class Main extends Component {
                     </CircularProgress>
                 </Block>
             </Card>
+            <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
             </ScrollView>
         )
     }
