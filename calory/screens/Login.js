@@ -19,7 +19,6 @@ export default class Login extends Component {
         navigation.navigate("App");
     };
     loginHandler() {
-        const { navigation } = this.props;
         const { email, password } = this.state;
         const errors = [];
         Keyboard.dismiss();
@@ -32,7 +31,6 @@ export default class Login extends Component {
         }
         if (!errors.length) {
             this._signInAsync();
-            navigation.navigate("App")
         }
     }
     render() {
@@ -55,7 +53,7 @@ export default class Login extends Component {
                             defaultValue={this.state.password}
                             onChangeText={text => this.setState({ password: text })}
                         />
-                        <Button gradient onPress={this._signInAsync}>
+                        <Button gradient onPress={() => this.loginHandler()}>
                             {loading ?
                                 <ActivityIndicator size="small" color="white" /> :
                                 <Text bold white center>Login</Text>
