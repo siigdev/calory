@@ -8,35 +8,42 @@ export default class Signup extends Component {
         email: null,
         username: null,
         password: null,
-        errors: [],
+        errors: {},
+        namevalidate: true,
         loading: false,
     }
     signupHandler() {
         const { navigation } = this.props;
         const { email, username, password } = this.state;
-        const errors = [];
+        const errors = {};
         Keyboard.dismiss();
 
-        if (!email) errors.push('email');
-        if (!username) errors.push('username');
-        if (!password) errors.push('password');
+        if (!email) {
+            errors["email"] = "Cannot be empty"
+        }
+        if (!username) {
+            errors["username"] = "Cannot be empty"
+        }
+        if (!password) {
+            errors["password"] = "Cannot be empty"
+        }
 
         this.setState({ errors, loading: false });
 
-        if (!errors.length) {
-            Alert.alert(
-              'Success!',
-              'Your account has been created',
-              [
-                {
-                  text: 'Continue', onPress: () => {
-                    navigation.navigate('Main')
-                  }
-                }
-              ],
-              { cancelable: false }
-            )
-          }
+        // if (!errors.length) {
+        //     Alert.alert(
+        //       'Success!',
+        //       'Your account has been created',
+        //       [
+        //         {
+        //           text: 'Continue', onPress: () => {
+        //             navigation.navigate('Main')
+        //           }
+        //         }
+        //       ],
+        //       { cancelable: false }
+        //     )
+        //   }
     }
     render() {
         const { loading } = this.state;
@@ -45,24 +52,27 @@ export default class Signup extends Component {
                 <Block padding={[0, theme.sizes.base * 2]}>
                     <Block middle>
                         <Input
-                            label="Email"
+                            label={"Email "}
                             style={[styles.input]}
                             defaultValue={this.state.email}
-                            onChangeText={text => this.setState({ email: text })}
+                            onChangeText={(text) => this.setState({ email: text })}
                         />
+                        <Text small style={{color: "red"}}>{this.state.errors["email"]}</Text>
                         <Input
-                            label="Username"
+                            label={"Username "}
                             style={[styles.input]}
                             defaultValue={this.state.username}
                             onChangeText={text => this.setState({ username: text })}
                         />
+                        <Text small style={{color: "red"}}>{this.state.errors["username"]}</Text>
                         <Input
                             secureTextEntry={true}
-                            label="Password"
+                            label={"Password "}
                             style={[styles.input]}
                             defaultValue={this.state.password}
                             onChangeText={text => this.setState({ password: text })}
                         />
+                        <Text small style={{color: "red"}}>{this.state.errors["password"]}</Text>
                         <Button gradient onPress={() => this.signupHandler()}>
                             {loading ?
                                 <ActivityIndicator size="small" color="white" /> :
