@@ -22,7 +22,6 @@ export default class Settings extends Component {
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Block padding={[0, theme.sizes.base * 2]}>
-                    <Text h1 bold>Login</Text>
                     <Block middle>
                         <Input
                             label="Email"

@@ -44,7 +44,6 @@ export default class Signup extends Component {
         return (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
                 <Block padding={[0, theme.sizes.base * 2]}>
-                    <Text h1 bold>Create user</Text>
                     <Block middle>
                         <Input
                             label="Email"
