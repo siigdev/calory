@@ -59,10 +59,10 @@ export default class Login extends Component {
                                 <Text bold white center>Login</Text>
                             }
                         </Button>
-                        <Button onPress={() => navigation.navigate('Settings')}>
+                        <Button onPress={() => navigation.navigate('ForgotPassword')}>
                             <Text gray caption center>
                                 Forgot your password?
-              </Text>
+                            </Text>
                         </Button>
                     </Block>
                 </Block>

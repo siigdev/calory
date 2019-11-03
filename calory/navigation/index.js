@@ -6,6 +6,7 @@ import Welcome from '../screens/Welcome';
 import Signup from '../screens/Signup';
 import Main from '../screens/Main';
 import Settings from '../screens/Settings';
+import ForgotPassword from '../screens/ForgotPassword';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import { theme } from '../constants';
 import { Text, Button } from '../components';
@@ -31,10 +32,16 @@ const authScreens = createStackNavigator({
             headerTitle: <Text h1 bold>Sign Up</Text>,
         },
     },
+    ForgotPassword: {
+        screen: ForgotPassword,
+        navigationOptions: {
+            headerTitle: <Text h1 bold>Forgot Password</Text>,
+        }
+    }
 },{
     defaultNavigationOptions: {
         headerStyle: {
-            backgroundColor: theme.colors.white,
+            backgroundColor: "Transparent",
             shadowColor: "Transparent",
             elevation: 0,
             shadowRadius: 0,
