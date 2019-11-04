@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
         height: window.width * 2,
         overflow: 'hidden',
         height: window.width / 1.5,
+        marginBottom: 20
     },
     background: {
         borderRadius: window.width,
