@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Alert, ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Block, Text, Input, Button } from '../components'
 import { theme } from '../constants';
+import firebase from 'firebase';
 
 export default class Signup extends Component {
     state = {
         email: null,
-        username: null,
         password: null,
         errors: {},
         namevalidate: true,
@@ -14,15 +14,17 @@ export default class Signup extends Component {
     }
     signupHandler() {
         const { navigation } = this.props;
-        const { email, username, password } = this.state;
+        const { email, password } = this.state;
         const errors = {};
         Keyboard.dismiss();
+        try {
+            firebase.auth().createUserWithEmailAndPassword(email, password);
+        } catch(error) {
+            console.log(error.toString())
+        }
 
         if (!email) {
             errors["email"] = "Cannot be empty"
-        }
-        if (!username) {
-            errors["username"] = "Cannot be empty"
         }
         if (!password) {
             errors["password"] = "Cannot be empty"
@@ -58,13 +60,6 @@ export default class Signup extends Component {
                             onChangeText={(text) => this.setState({ email: text })}
                         />
                         <Text small style={{color: "red"}}>{this.state.errors["email"]}</Text>
-                        <Input
-                            label={"Username "}
-                            style={[styles.input]}
-                            defaultValue={this.state.username}
-                            onChangeText={text => this.setState({ username: text })}
-                        />
-                        <Text small style={{color: "red"}}>{this.state.errors["username"]}</Text>
                         <Input
                             secureTextEntry={true}
                             label={"Password "}
