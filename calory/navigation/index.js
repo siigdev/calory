@@ -12,7 +12,7 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import { theme } from '../constants';
 import { Text } from '../components';
 
-import { fromLeft } from 'react-navigation-transitions';
+import { fromLeft, zoomIn } from 'react-navigation-transitions';
 
 const authLoadingScreen = createStackNavigator({
     AuthLoadingScreen: {
@@ -59,7 +59,9 @@ const screens = createStackNavigator({
     Main: {
         screen: Main,
         navigationOptions: {
-            headerLeft: null,
+            headerStyle: {
+                height: 0
+            }
         }
     },
     Barcode: {
@@ -74,7 +76,6 @@ const screens = createStackNavigator({
 }, {
     defaultNavigationOptions: {
         headerStyle: {
-            height: 0,
             backgroundColor: theme.colors.gray3,
             shadowColor: "Transparent",
             elevation: 0,

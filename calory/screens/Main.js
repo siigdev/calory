@@ -13,6 +13,7 @@ export default class Main extends Component {
         navigation.navigate('Welcome');
     };
     render() {
+        const { navigation } = this.props;
         return (
             <ScrollView>
                 <View style={styles.container} >
@@ -27,10 +28,10 @@ export default class Main extends Component {
                                         lineCap="round"
                                         rotation={0}
                                         arcSweepAngle={360}
-                                        width={theme.sizes.base}
+                                        width={theme.sizes.base / 4}
                                         tintColor={theme.colors.white}
                                         backgroundColor={theme.colors.secondary}
-                                        backgroundWidth={theme.sizes.base / 2}
+                                        backgroundWidth={theme.sizes.base / 8}
                                     >{() => (
                                         <Block center middle>
                                             <Text white h3 small>322</Text>
@@ -47,10 +48,50 @@ export default class Main extends Component {
                 <Block padding={[0, theme.sizes.base * 2]}>
                     <Card shadow >
                         <Block center>
-                            <Text>This is a card</Text>
+                            <Block row>
+                                <Block center flex={0.8}>
+                                    <Text size={20} spacing={1} primary>79</Text>
+                                    <Text spacing={0.7}>Trips</Text>
+                                </Block>
+
+                                <Block center flex={2}>
+                                    <Text size={20} spacing={1} primary>123</Text>
+                                    <Text spacing={0.7}>Hours</Text>
+                                </Block>
+
+                                <Block center flex={0.8}>
+                                    <Text size={20} spacing={1} primary>2.786</Text>
+                                    <Text spacing={0.7}>Miles</Text>
+                                </Block>
+                            </Block>
                         </Block>
                     </Card>
-                    <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
+                    <Card shadow >
+                        <Block center>
+                            <Block row>
+                                <Block center flex={0.8}>
+                                    <Text size={20} spacing={1} primary>79</Text>
+                                    <Text spacing={0.7}>Trips</Text>
+                                </Block>
+
+                                <Block center flex={2}>
+                                    <Text size={20} spacing={1} primary>123</Text>
+                                    <Text spacing={0.7}>Hours</Text>
+                                </Block>
+
+                                <Block center flex={0.8}>
+                                    <Text size={20} spacing={1} primary>2.786</Text>
+                                    <Text spacing={0.7}>Miles</Text>
+                                </Block>
+                            </Block>
+                        </Block>
+                    </Card>
+                    <Button title="Settings" onPress={() => navigation.navigate('Settings')}>
+                    <Text bold black center>Settings</Text>
+                    </Button>
+                    <Button title="Actually, sign me out :)" onPress={this._signOutAsync}>
+                    <Text bold black center>Log Out</Text>
+                    </Button>
                 </Block>
             </ScrollView>
         )
@@ -65,7 +106,7 @@ const styles = StyleSheet.create({
         width: window.width,
         height: window.width * 2,
         overflow: 'hidden',
-        height: window.width / 1.7
+        height: window.width / 1.5,
     },
     background: {
         borderRadius: window.width,
@@ -77,8 +118,9 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     slider: {
-        height: window.width / 1.7,
+        height: window.width / 1.5,
         width: window.width,
+        paddingTop: 20,
         position: 'absolute',
         bottom: 0,
         marginLeft: window.width / 2,

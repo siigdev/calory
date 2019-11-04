@@ -9,7 +9,8 @@ import { theme } from '../constants';
 export default class Login extends Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        isLoading: false
     }
     _signInAsync = async () => {
         const { navigation } = this.props;
@@ -19,53 +20,58 @@ export default class Login extends Component {
     loginHandler() {
         const { email, password } = this.state;
         Keyboard.dismiss();
+        this.setState({ isLoading: true });
         try {
             firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
                 this._signInAsync();
             })
-            .catch(error => {
-                switch(error.code) {
-                    case 'auth/invalid-email':
-                        console.warn('Invalid mail')
-                        break;
-                }
-            });
+                .catch(error => {
+                    this.setState({ isLoading: false });
+                    switch (error.code) {
+                        case 'auth/invalid-email':
+                            console.warn('Invalid mail')
+                            break;
+                    }
+                });
         } catch (error) {
+            this.setState({ isLoading: false });
             console.warn("Error")
         }
     }
     render() {
         const { navigation } = this.props;
-        const { loading } = this.state;
+        const { isLoading } = this.state;
         return (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
                 <Block animation="zoomIn" duration={400} padding={[0, theme.sizes.base * 2]}>
-                    <Block middle>
-                        <Input
-                            label="Email"
-                            style={[styles.input]}
-                            defaultValue={this.state.email}
-                            onChangeText={text => this.setState({ email: text })}
-                        />
-                        <Input
-                            secureTextEntry={true}
-                            label="Password"
-                            style={[styles.input]}
-                            defaultValue={this.state.password}
-                            onChangeText={text => this.setState({ password: text })}
-                        />
-                        <Button gradient onPress={() => this.loginHandler()}>
-                            {loading ?
-                                <ActivityIndicator size="small" color="white" /> :
+
+                    {isLoading ?
+                        <Block middle><ActivityIndicator size={100} color={theme.colors.primary} /></Block> :
+                        <Block middle>
+                            <Input
+                                label="Email"
+                                style={[styles.input]}
+                                defaultValue={this.state.email}
+                                onChangeText={text => this.setState({ email: text })}
+                            />
+                            <Input
+                                secureTextEntry={true}
+                                label="Password"
+                                style={[styles.input]}
+                                defaultValue={this.state.password}
+                                onChangeText={text => this.setState({ password: text })}
+                            />
+                            <Button gradient onPress={() => this.loginHandler()}>
                                 <Text bold white center>Login</Text>
-                            }
-                        </Button>
-                        <Button onPress={() => navigation.navigate('Barcode')}>
-                            <Text gray caption center>
-                                Forgot your password?
+                            </Button>
+                            <Button onPress={() => navigation.navigate('Barcode')}>
+                                <Text gray caption center>
+                                    Forgot your password?
                             </Text>
-                        </Button>
-                    </Block>
+                            </Button>
+
+                        </Block>
+                    }
                 </Block>
             </KeyboardAvoidingView>
         )

@@ -3,7 +3,7 @@
 
 import React, { Component } from 'react'
 import { ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
-import { Block, Text, Input, Button, Switch } from '../components'
+import { Block, Text, Input, Button, Switch, Divider } from '../components'
 import Slider from 'react-native-slider'
 
 import { theme } from '../constants';
@@ -57,12 +57,9 @@ export default class Settings extends Component {
                             onValueChange={value => this.setState({ height: value })}
                         />
                         <Text caption gray right>{this.state.height}cm</Text>
-                        <Button gradient onPress={() => this.loginHandler()}>
-                            {loading ?
-                                <ActivityIndicator size="small" color="white" /> :
-                                <Text bold white center>Login</Text>
-                            }
-                        </Button>
+                        
+                        <Divider margin={0} />
+
                         <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
                             <Text gray2>Newsletter</Text>
                             <Switch
@@ -70,6 +67,12 @@ export default class Settings extends Component {
                                 onValueChange={value => this.setState({ newsletter: value })}
                             />
                         </Block>
+                        <Button gradient onPress={() => this.loginHandler()}>
+                            {loading ?
+                                <ActivityIndicator size="small" color="white" /> :
+                                <Text bold white center>Save Settings</Text>
+                            }
+                        </Button>
                     </Block>
                 </Block>
             </ScrollView>
