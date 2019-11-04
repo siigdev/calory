@@ -32,7 +32,7 @@ export default class Signup extends Component {
         const { loading } = this.state;
         return (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
-                <Block padding={[0, theme.sizes.base * 2]}>
+                <Block animation="zoomIn" duration={400} padding={[0, theme.sizes.base * 2]}>
                     <Block middle>
                         <Input
                             label={"Email "}

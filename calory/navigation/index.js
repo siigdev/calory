@@ -9,7 +9,9 @@ import Settings from '../screens/Settings';
 import ForgotPassword from '../screens/ForgotPassword';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import { theme } from '../constants';
-import { Text, Button } from '../components';
+import { Text } from '../components';
+
+import { fromLeft } from 'react-navigation-transitions';
 
 const authLoadingScreen = createStackNavigator({
     AuthLoadingScreen: {
@@ -39,6 +41,8 @@ const authScreens = createStackNavigator({
         }
     }
 },{
+
+    transitionConfig: () => fromLeft(500),
     defaultNavigationOptions: {
         headerStyle: {
             backgroundColor: "Transparent",
@@ -83,5 +87,5 @@ export default createAppContainer(createSwitchNavigator(
     },
     {
         initialRouteName: 'AuthLoading',
-    })
+    }, )
 );

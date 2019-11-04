@@ -17,7 +17,7 @@ export default class ForgotPassword extends Component {
     render() {
         const { loading } = this.state;
         return (
-            <Block padding={[0, theme.sizes.base * 2]}>
+            <Block animation="zoomIn" duration={400}  padding={[0, theme.sizes.base * 2]}>
                 <Block middle>
                     <Block center bottom flex={0.2}>
                         <Image
