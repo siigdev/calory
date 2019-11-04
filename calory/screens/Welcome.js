@@ -1,11 +1,35 @@
 import React, { Component } from 'react'
 import { Button, Block, Text } from '../components';
-import { Animated, Dimensions, Image, FlatList, StyleSheet } from 'react-native';
+import { Animated, Dimensions, Image, FlatList, StyleSheet, Modal, ScrollView } from 'react-native';
 import { theme } from '../constants';
 
 const { width, height } = Dimensions.get('window');
 
 export default class Welcome extends Component {
+  state = {
+    showTerms: false,
+  }
+  renderTermsOfService() {
+    return (
+      <Modal animationType="slide" visible={this.state.showTerms} onRequestClose={() => this.setState({ showTerms: false })}>
+        <Block padding={[theme.sizes.padding * 2, theme.sizes.padding]} space="between">
+          <Text h2 light>Terms of Service</Text>
+
+          <ScrollView style={{ marginVertical: theme.sizes.padding }}>
+            <Text caption gray height={24} style={{ marginBottom: theme.sizes.base }}>
+              1. Your use of the Service is at your sole risk. The service is provided on an "as is" and "as available" basis.  
+            </Text>
+          </ScrollView>
+
+          <Block middle padding={[theme.sizes.base / 2, 0]}>
+            <Button gradient onPress={() => this.setState({ showTerms: false })}>
+              <Text center white>I understand</Text>
+            </Button>
+          </Block>
+        </Block>
+      </Modal>
+    )
+  }
     scrollX = new Animated.Value(0);
     renderIllustrations() {
         const { illustrations } = this.props;
@@ -86,6 +110,7 @@ export default class Welcome extends Component {
                         <Text center caption gray>Terms of service</Text>
                     </Button>
                 </Block>
+                {this.renderTermsOfService()}
             </Block>
         )
     }
