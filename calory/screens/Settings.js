@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
 import { Block, Text, Input, Button, Switch, Divider } from '../components'
 import Slider from 'react-native-slider'
+import DatePicker from 'react-native-datepicker'
 
 import { theme } from '../constants';
 
@@ -57,7 +58,27 @@ export default class Settings extends Component {
                             onValueChange={value => this.setState({ height: value })}
                         />
                         <Text caption gray right>{this.state.height}cm</Text>
-                        
+
+                        <DatePicker
+                            style={{ width: 200 }}
+                            date={this.state.date}
+                            mode="date"
+                            format="YYYY-MM-DD"
+                            minDate="2016-05-01"
+                            maxDate="2016-06-01"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            showIcon={false}
+                            customStyles={{
+                                dateInput: {
+                                    borderWidth: 0,
+                                    marginLeft: 36
+                                }
+                            }}
+                            onDateChange={(date) => { this.setState({ date: date }) }}
+                        />
+
+
                         <Divider margin={0} />
 
                         <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
