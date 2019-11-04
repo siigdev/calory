@@ -74,6 +74,7 @@ const screens = createStackNavigator({
 }, {
     defaultNavigationOptions: {
         headerStyle: {
+            height: 0,
             backgroundColor: theme.colors.gray3,
             shadowColor: "Transparent",
             elevation: 0,

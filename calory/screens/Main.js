@@ -16,38 +16,42 @@ export default class Main extends Component {
         return (
             <ScrollView>
                 <View style={styles.container} >
-                
+
                     <View style={styles.background} >
-                    <LinearGradient colors={[theme.colors.primary, theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
-                        <View style={styles.slider}>
-                        </View>
+                        <LinearGradient colors={[theme.colors.primary, theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
+                            <View style={styles.slider}>
+                                <Block center>
+                                    <CircularProgress
+                                        size={150}
+                                        fill={60}
+                                        lineCap="round"
+                                        rotation={0}
+                                        arcSweepAngle={360}
+                                        width={theme.sizes.base}
+                                        tintColor={theme.colors.white}
+                                        backgroundColor={theme.colors.secondary}
+                                        backgroundWidth={theme.sizes.base / 2}
+                                    >{() => (
+                                        <Block center middle>
+                                            <Text white h3 small>322</Text>
+                                            <Text white h4 caption transform="uppercase">CALORIES LEFT</Text>
+                                        </Block>
+                                    )}
+                                    </CircularProgress>
+                                </Block>
+                            </View>
                         </LinearGradient>
                     </View>
-                    
+
                 </View>
-                <Card shadow style={{ paddingVertical: theme.sizes.base * 2 }}>
-                    <Block center>
-                        <CircularProgress
-                            size={214}
-                            fill={60}
-                            lineCap="round"
-                            rotation={220}
-                            arcSweepAngle={280}
-                            width={theme.sizes.base}
-                            tintColor={theme.colors.primary}
-                            backgroundColor={theme.colors.gray2}
-                            backgroundWidth={theme.sizes.base / 2}
-                        >
-                            {() => (
-                                <Block center middle>
-                                    <Text h2 medium>60 %</Text>
-                                    <Text h3 transform="uppercase">good</Text>
-                                </Block>
-                            )}
-                        </CircularProgress>
-                    </Block>
-                </Card>
-                <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
+                <Block padding={[0, theme.sizes.base * 2]}>
+                    <Card shadow >
+                        <Block center>
+                            <Text>This is a card</Text>
+                        </Block>
+                    </Card>
+                    <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
+                </Block>
             </ScrollView>
         )
     }
@@ -59,11 +63,11 @@ const styles = StyleSheet.create({
     }, container: {
         alignSelf: 'center',
         width: window.width,
-        height: window.width*2,
+        height: window.width * 2,
         overflow: 'hidden',
         height: window.width / 1.7
     },
-    background: { 
+    background: {
         borderRadius: window.width,
         width: window.width * 2,
         height: window.width * 2,
@@ -81,5 +85,5 @@ const styles = StyleSheet.create({
     },
     linearGradient: {
         flex: 1,
-      },
+    },
 });
