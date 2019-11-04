@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { StyleSheet, Image } from 'react-native';
 import { theme } from '../constants';
 import { Text, Button, Input, Block } from '../components';
+import firebase from 'firebase';
 
 export default class ForgotPassword extends Component {
     state = {
         email: '',
     };
     handleForgot() {
-        console.log("Hmm")
+        const { email } = this.state;
+        firebase.auth().sendPasswordResetEmail(email).then(() => {
+            console.warn("SENT")
+        }).catch((e) => console.warn(e))
     };
     render() {
         const { loading } = this.state;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Animated } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { View } from 'react-native-animatable'
 
 import { theme } from '../constants';
 
@@ -113,7 +114,6 @@ export default class Block extends Component {
       space,
       padding,
       margin,
-      animated,
       wrap,
       style,
       children,
@@ -142,14 +142,6 @@ export default class Block extends Component {
       color && !styles[color] && { backgroundColor: color }, // custom backgroundColor
       style, // rewrite predefined styles
     ];
-
-    if (animated) {
-      return (
-        <Animated.View style={blockStyles} {...props}>
-          {children}
-        </Animated.View>
-      )
-    }
 
     return (
       <View style={blockStyles} {...props}>

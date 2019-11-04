@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { AsyncStorage, ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Block, Text, Input, Button } from '../components'
 import { theme } from '../constants';
 import firebase from 'firebase';
@@ -8,44 +8,25 @@ export default class Signup extends Component {
     state = {
         email: null,
         password: null,
-        errors: {},
         namevalidate: true,
         loading: false,
     }
-    signupHandler() {
+    _signInAsync = async () => {
         const { navigation } = this.props;
+        await AsyncStorage.setItem('userToken', 'abc');
+        navigation.navigate("App");
+    };
+
+    signupHandler() {
         const { email, password } = this.state;
-        const errors = {};
         Keyboard.dismiss();
         try {
-            firebase.auth().createUserWithEmailAndPassword(email, password);
-        } catch(error) {
+            firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+                this._signInAsync()
+            });
+        } catch (error) {
             console.log(error.toString())
         }
-
-        if (!email) {
-            errors["email"] = "Cannot be empty"
-        }
-        if (!password) {
-            errors["password"] = "Cannot be empty"
-        }
-
-        this.setState({ errors, loading: false });
-
-        // if (!errors.length) {
-        //     Alert.alert(
-        //       'Success!',
-        //       'Your account has been created',
-        //       [
-        //         {
-        //           text: 'Continue', onPress: () => {
-        //             navigation.navigate('Main')
-        //           }
-        //         }
-        //       ],
-        //       { cancelable: false }
-        //     )
-        //   }
     }
     render() {
         const { loading } = this.state;
@@ -59,7 +40,6 @@ export default class Signup extends Component {
                             defaultValue={this.state.email}
                             onChangeText={(text) => this.setState({ email: text })}
                         />
-                        <Text small style={{color: "red"}}>{this.state.errors["email"]}</Text>
                         <Input
                             secureTextEntry={true}
                             label={"Password "}
@@ -67,7 +47,6 @@ export default class Signup extends Component {
                             defaultValue={this.state.password}
                             onChangeText={text => this.setState({ password: text })}
                         />
-                        <Text small style={{color: "red"}}>{this.state.errors["password"]}</Text>
                         <Button gradient onPress={() => this.signupHandler()}>
                             {loading ?
                                 <ActivityIndicator size="small" color="white" /> :
@@ -90,8 +69,5 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderBottomColor: theme.colors.gray,
         borderBottomWidth: 1
-    },
-    hasErrors: {
-        borderBottomColor: theme.colors.gray,
     }
 })  

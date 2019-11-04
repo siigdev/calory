@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import { AsyncStorage, ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Block, Text, Input, Button } from '../components'
+import firebase from 'firebase';
 
 import { theme } from '../constants';
 
-const EMAIL = "test@test.dk"
-const PASSWORD = "123"
 
 export default class Login extends Component {
     state = {
-        email: EMAIL,
-        password: PASSWORD,
-        errors: []
+        email: '',
+        password: ''
     }
     _signInAsync = async () => {
         const { navigation } = this.props;
@@ -20,25 +18,28 @@ export default class Login extends Component {
     };
     loginHandler() {
         const { email, password } = this.state;
-        const errors = [];
         Keyboard.dismiss();
-
-        if (email !== EMAIL) {
-            errors.push('email')
-        }
-        if (password !== PASSWORD) {
-            errors.push('password')
-        }
-        if (!errors.length) {
-            this._signInAsync();
+        try {
+            firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+                this._signInAsync();
+            })
+            .catch(error => {
+                switch(error.code) {
+                    case 'auth/invalid-email':
+                        console.warn('Invalid mail')
+                        break;
+                }
+            });
+        } catch (error) {
+            console.warn("Error")
         }
     }
     render() {
         const { navigation } = this.props;
-        const { loading, errors } = this.state;
+        const { loading } = this.state;
         return (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
-                <Block padding={[0, theme.sizes.base * 2]}>
+                <Block animation="zoomIn" duration={400} padding={[0, theme.sizes.base * 2]}>
                     <Block middle>
                         <Input
                             label="Email"
@@ -80,8 +81,5 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderBottomColor: theme.colors.gray,
         borderBottomWidth: 1
-    },
-    hasErrors: {
-        borderBottomColor: theme.colors.black,
     }
 })  

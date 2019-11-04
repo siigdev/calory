@@ -66,7 +66,7 @@ export default class Welcome extends Component {
     render() {
         const { navigation } = this.props;
         return (
-            <Block>
+            <Block id={containerBlock}>
                 <Block center bottom flex={0.2}>
                     <Text h1 center bold>Keep track of your <Text h1 primary>Calory.</Text></Text>
                     <Text h3 gray2>Estimate required workout</Text>
