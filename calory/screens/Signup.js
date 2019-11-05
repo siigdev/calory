@@ -9,7 +9,7 @@ export default class Signup extends Component {
         email: null,
         password: null,
         namevalidate: true,
-        loading: false,
+        isLoading: false
     }
     _signInAsync = async () => {
         const { navigation } = this.props;
@@ -20,12 +20,20 @@ export default class Signup extends Component {
     signupHandler() {
         const { email, password } = this.state;
         Keyboard.dismiss();
+        this.setState({ isLoading: true });
         try {
             firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
                 this._signInAsync()
+            }).catch(error => {
+                this.setState({ isLoading: false });
+                switch (error.code) {
+                    case 'auth/invalid-email':
+                        console.warn('Invalid mail')
+                        break;
+                }
             });
         } catch (error) {
-            console.log(error.toString())
+            this.setState({ isLoading: false });
         }
     }
     render() {
@@ -33,27 +41,30 @@ export default class Signup extends Component {
         return (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
                 <Block animation="zoomIn" duration={400} padding={[0, theme.sizes.base * 2]}>
-                    <Block middle>
-                        <Input
-                            label={"Email "}
-                            style={[styles.input]}
-                            defaultValue={this.state.email}
-                            onChangeText={(text) => this.setState({ email: text })}
-                        />
-                        <Input
-                            secureTextEntry={true}
-                            label={"Password "}
-                            style={[styles.input]}
-                            defaultValue={this.state.password}
-                            onChangeText={text => this.setState({ password: text })}
-                        />
-                        <Button gradient onPress={() => this.signupHandler()}>
-                            {loading ?
-                                <ActivityIndicator size="small" color="white" /> :
-                                <Text bold white center>Sign up</Text>
-                            }
-                        </Button>
-                    </Block>
+                    {isLoading ?
+                        <Block middle><ActivityIndicator size={100} color={theme.colors.primary} /></Block> :
+                        <Block middle>
+                            <Input
+                                label={"Email "}
+                                style={[styles.input]}
+                                defaultValue={this.state.email}
+                                onChangeText={(text) => this.setState({ email: text })}
+                            />
+                            <Input
+                                secureTextEntry={true}
+                                label={"Password "}
+                                style={[styles.input]}
+                                defaultValue={this.state.password}
+                                onChangeText={text => this.setState({ password: text })}
+                            />
+                            <Button gradient onPress={() => this.signupHandler()}>
+                                {loading ?
+                                    <ActivityIndicator size="small" color="white" /> :
+                                    <Text bold white center>Sign up</Text>
+                                }
+                            </Button>
+                        </Block>
+                    }
                 </Block>
             </KeyboardAvoidingView>
         )
