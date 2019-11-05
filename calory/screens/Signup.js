@@ -37,7 +37,7 @@ export default class Signup extends Component {
         }
     }
     render() {
-        const { loading } = this.state;
+        const { isLoading } = this.state;
         return (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
                 <Block animation="zoomIn" duration={400} padding={[0, theme.sizes.base * 2]}>
@@ -58,10 +58,7 @@ export default class Signup extends Component {
                                 onChangeText={text => this.setState({ password: text })}
                             />
                             <Button gradient onPress={() => this.signupHandler()}>
-                                {loading ?
-                                    <ActivityIndicator size="small" color="white" /> :
                                     <Text bold white center>Sign up</Text>
-                                }
                             </Button>
                         </Block>
                     }
