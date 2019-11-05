@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Block, Text, Card, Button } from '../components';
+import { Block, Text, Card, Button, Badge } from '../components';
 import { AsyncStorage, ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { CircularProgress } from 'react-native-circular-progress';
@@ -12,12 +12,28 @@ export default class Main extends Component {
         await AsyncStorage.clear();
         navigation.navigate('Welcome');
     };
-    render() {
-        const { navigation } = this.props;
+    renderReward(){
         return (
-            <ScrollView>
-                <View style={styles.container} >
-
+            <LinearGradient
+            end={{ x: 1, y: 0 }}
+            colors={["#FF988A", theme.colors.accent]}
+          >
+            <Block middle flex={0.4}>
+              <Badge color={theme.colors.white, '0.2'} size={74}>
+                <Badge color={theme.colors.white, '0.2'} size={52}>
+                </Badge>
+              </Badge>
+            </Block>
+            <Block middle>
+              <Text size={theme.sizes.base} spacing={0.4} medium white>Wohoo!</Text>
+              <Text size={theme.sizes.base} spacing={0.4} medium white>Safe Driver Trophy!</Text>
+            </Block>
+          </LinearGradient>
+        )
+    }
+    renderTopHeader() {
+        return(
+            <View style={styles.container} >
                     <View style={styles.background} >
                         <LinearGradient colors={[theme.colors.primary, theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
                             <View style={styles.slider}>
@@ -45,6 +61,16 @@ export default class Main extends Component {
                     </View>
 
                 </View>
+        )
+
+    }
+
+    render() {
+        const { navigation } = this.props;
+        return (
+            <ScrollView>
+                {this.renderTopHeader()}
+                {this.renderReward()}
                 <Block padding={[0, theme.sizes.base * 2]}>
                     <Card shadow >
                         <Block center>

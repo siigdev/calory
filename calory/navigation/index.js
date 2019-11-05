@@ -6,6 +6,7 @@ import Welcome from '../screens/Welcome';
 import Signup from '../screens/Signup';
 import Main from '../screens/Main';
 import Barcode from '../screens/Barcode';
+import ProductPage from '../screens/ProductPage';
 import Settings from '../screens/Settings';
 import ForgotPassword from '../screens/ForgotPassword';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
@@ -66,6 +67,9 @@ const screens = createStackNavigator({
     },
     Barcode: {
         screen: Barcode,
+    },
+    ProductPage: {
+        screen: ProductPage,
     },
     Settings: {
         screen: Settings,

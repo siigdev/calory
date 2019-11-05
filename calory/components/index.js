@@ -5,5 +5,6 @@ import Button from './Button';
 import Switch from './Switch';
 import Card from './Card';
 import Divider from './Divider';
+import Badge from './Badge';
 
-export { Block, Text, Input, Button, Switch, Card, Divider };
+export { Block, Text, Input, Button, Switch, Card, Divider, Badge };
