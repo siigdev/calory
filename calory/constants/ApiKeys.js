@@ -7,5 +7,9 @@ export default {
         storageBucket: "calory-1d07d.appspot.com",
         messagingSenderId: "43462167522",
         appId: "1:43462167522:web:4051e4f934ffb9eae107bb"
+    },
+    edamamConfig: {
+        appId: "845f5df5",
+        applicationKey: "b0908a4960bf25af534b818c6dc7fb15"
     }
 }
