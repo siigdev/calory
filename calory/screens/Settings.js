@@ -2,7 +2,7 @@
 
 
 import React, { Component } from 'react'
-import { ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
+import { AsyncStorage, ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
 import { Block, Text, Input, Button, Switch, Divider } from '../components'
 import Slider from 'react-native-slider'
 import DatePicker from 'react-native-datepicker'
@@ -17,8 +17,12 @@ export default class Settings extends Component {
         newsletter: true,
         errors: []
     }
-    render() {
+    _signOutAsync = async () => {
         const { navigation } = this.props;
+        await AsyncStorage.clear();
+        navigation.navigate('Welcome');
+    };
+    render() {
         const { loading, errors } = this.state;
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -88,12 +92,15 @@ export default class Settings extends Component {
                                 onValueChange={value => this.setState({ newsletter: value })}
                             />
                         </Block>
-                        <Button gradient onPress={() => this.loginHandler()}>
+                        <Button gradient onPress={() => console.warn("nothing")}>
                             {loading ?
                                 <ActivityIndicator size="small" color="white" /> :
                                 <Text bold white center>Save Settings</Text>
                             }
                         </Button>
+                        <Button title="Actually, sign me out :)" onPress={this._signOutAsync}>
+                    <Text bold black center>Log Out</Text>
+                    </Button>
                     </Block>
                 </Block>
             </ScrollView>

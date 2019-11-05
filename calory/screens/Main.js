@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { Block, Text, Card, Button, Badge } from '../components';
-import { AsyncStorage, ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
+import { ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { CircularProgress } from 'react-native-circular-progress';
 
 import { theme } from '../constants';
 const window = Dimensions.get('window');
 export default class Main extends Component {
-    _signOutAsync = async () => {
-        const { navigation } = this.props;
-        await AsyncStorage.clear();
-        navigation.navigate('Welcome');
-    };
+
     renderReward(){
         return (
             <LinearGradient
@@ -115,9 +111,7 @@ export default class Main extends Component {
                     <Button title="Settings" onPress={() => navigation.navigate('Settings')}>
                     <Text bold black center>Settings</Text>
                     </Button>
-                    <Button title="Actually, sign me out :)" onPress={this._signOutAsync}>
-                    <Text bold black center>Log Out</Text>
-                    </Button>
+                    
                 </Block>
             </ScrollView>
         )
