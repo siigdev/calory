@@ -46,7 +46,7 @@ export default class Settings extends Component {
                                     style={{ height: 19 }}
                                     thumbStyle={styles.thumb}
                                     trackStyle={{ height: 6, borderRadius: 6 }}
-                                    minimumTrackTintColor={theme.colors.secondary}
+                                    minimumTrackTintColor={appConsumer.theme.colors.secondary}
                                     maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
                                     value={this.state.weight}
                                     onValueChange={value => this.setState({ weight: value })}
@@ -60,7 +60,7 @@ export default class Settings extends Component {
                                     style={{ height: 19 }}
                                     thumbStyle={styles.thumb}
                                     trackStyle={{ height: 6, borderRadius: 6 }}
-                                    minimumTrackTintColor={theme.colors.secondary}
+                                    minimumTrackTintColor={appConsumer.theme.colors.secondary}
                                     maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
                                     value={this.state.height}
                                     onValueChange={value => this.setState({ height: value })}
