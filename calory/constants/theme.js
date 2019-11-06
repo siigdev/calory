@@ -21,8 +21,8 @@ const greenTheme = {
   colors: {
     ...DefaultTheme.colors,
     accent: "#ed5353",
-    primary: "#62B33E",
-    secondary: "#8aff57",
+    primary: "#50CA58",
+    secondary: "#ADE7B1",
     tertiary: "#fff394",
     black: "#273445",
     white: "#FFFFFF",
@@ -36,8 +36,8 @@ const redTheme = {
   colors: {
     ...DefaultTheme.colors,
     accent: "#ed5353",
-    primary: "#DA4A55",
-    secondary: "#8aff57",
+    primary: "#FF6559",
+    secondary: "#FFA8A8",
     tertiary: "#fff394",
     black: "#273445",
     white: "#FFFFFF",
@@ -51,8 +51,8 @@ const yellowTheme = {
   colors: {
     ...DefaultTheme.colors,
     accent: "#ed5353",
-    primary: "#E47D3C",
-    secondary: "#8aff57",
+    primary: "#FFAE59",
+    secondary: "#FFD5A8",
     tertiary: "#fff394",
     black: "#273445",
     white: "#FFFFFF",
