@@ -7,5 +7,6 @@ import Card from './Card';
 import Divider from './Divider';
 import Badge from './Badge';
 import Progress from './Progress';
+import ColorPalette from './color-palette/ColorPalette';
 
-export { Block, Text, Input, Button, Switch, Card, Divider, Badge, Progress };
+export { Block, Text, Input, Button, Switch, Card, Divider, Badge, Progress, ColorPalette };

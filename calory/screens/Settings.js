@@ -3,7 +3,7 @@
 
 import React, { Component } from 'react'
 import { AsyncStorage, ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
-import { Block, Text, Input, Button, Switch, Divider } from '../components'
+import { Block, Text, Input, Button, Switch, Divider, ColorPalette } from '../components'
 import Slider from 'react-native-slider'
 import DatePicker from 'react-native-datepicker'
 
@@ -24,6 +24,7 @@ export default class Settings extends Component {
     };
     render() {
         const { loading, errors } = this.state;
+        let selectedColor = '#C0392B';
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Block padding={[0, theme.sizes.base * 2]}>
@@ -85,6 +86,14 @@ export default class Settings extends Component {
 
                         <Divider margin={0} />
 
+                        <ColorPalette
+                            onChange={color => selectedColor = color}
+                            value={selectedColor}
+                            colors={['#6EBEE7', '#62B33E', '#DA4A55', '#E47D3C', '#7639F5']}
+                            title={"Controlled Color Palette:"}
+                            icon={<Text white>✔</Text>}
+                        />
+
                         <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
                             <Text gray2>Newsletter</Text>
                             <Switch
@@ -99,8 +108,8 @@ export default class Settings extends Component {
                             }
                         </Button>
                         <Button title="Actually, sign me out :)" onPress={this._signOutAsync}>
-                    <Text bold black center>Log Out</Text>
-                    </Button>
+                            <Text bold black center>Log Out</Text>
+                        </Button>
                     </Block>
                 </Block>
             </ScrollView>
