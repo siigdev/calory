@@ -25,7 +25,7 @@ export default class Settings extends Component {
     };
     render() {
         const { loading, errors } = this.state;
-        let selectedColor = '#C0392B';
+        let selectedColor = '#6EBEE7';
         return (
             <AppConsumer>
                 {appConsumer => (
@@ -87,7 +87,8 @@ export default class Settings extends Component {
                                 />
 
                                 <Divider margin={0} />
-
+                                <Block row center space="between">
+                                    <Text>Theme</Text>
                                 <ColorPalette
                                     onChange={color => {
                                         selectedColor = color;
@@ -107,9 +108,10 @@ export default class Settings extends Component {
                                             }}}
                                     value={selectedColor}
                                     colors={['#6EBEE7', '#62B33E', '#DA4A55', '#E47D3C']}
-                                    title={"Controlled Color Palette:"}
+                                    title={""}
                                     icon={<Text white>✔</Text>}
                                 />
+                                </Block>
                                 <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
                                     <Text gray2>Newsletter</Text>
                                     <Switch
