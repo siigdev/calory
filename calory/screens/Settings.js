@@ -29,7 +29,7 @@ export default class Settings extends Component {
         return (
             <AppConsumer>
                 {appConsumer => (
-                    <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: appConsumer.theme.colors.primary}}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <Block padding={[0, theme.sizes.base * 2]}>
                             <Block middle>
                                 <Input
@@ -145,11 +145,7 @@ const styles = StyleSheet.create({
     input: {
         borderRadius: 0,
         borderWidth: 0,
-        borderBottomColor: theme.colors.gray,
         borderBottomWidth: 1
-    },
-    hasErrors: {
-        borderBottomColor: theme.colors.black,
     },
     header: {
         paddingHorizontal: theme.sizes.base * 2,
@@ -175,7 +171,6 @@ const styles = StyleSheet.create({
         borderRadius: theme.sizes.base,
         borderColor: 'white',
         borderWidth: 3,
-        backgroundColor: theme.colors.secondary,
     },
     toggles: {
         paddingHorizontal: theme.sizes.base * 2,
