@@ -1,6 +1,3 @@
-
-
-
 import React, { Component } from 'react'
 import { AsyncStorage, ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
 import { Block, Text, Input, Button, Switch, Divider, ColorPalette } from '../components'
@@ -100,10 +97,10 @@ export default class Settings extends Component {
                                                     appConsumer.updateTheme(theme.greenTheme);
                                                     break;
                                             case '#DA4A55':
-                                                    appConsumer.updateTheme(theme.blueTheme);
+                                                    appConsumer.updateTheme(theme.redTheme);
                                                     break;
                                             case '#E47D3C':
-                                                    appConsumer.updateTheme(theme.greenTheme);
+                                                    appConsumer.updateTheme(theme.yellowTheme);
                                                     break;
                                             }}}
                                     value={selectedColor}

@@ -3,7 +3,7 @@ import { Block, Text, Card, Button, Badge } from '../components';
 import { ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { CircularProgress } from 'react-native-circular-progress';
-
+import { AppConsumer } from '../AppContextProvider'
 
 import { theme } from '../constants';
 const window = Dimensions.get('window');
@@ -11,13 +11,15 @@ export default class Main extends Component {
 
     renderReward() {
         return (
+            <AppConsumer>
+            {appConsumer => (
             <LinearGradient
                 end={{ x: 1, y: 0 }}
-                colors={["#FF988A", theme.colors.accent]}
+                colors={["#FF988A", appConsumer.theme.colors.accent]}
             >
                 <Block middle flex={0.4}>
-                    <Badge color={theme.colors.white, '0.2'} size={74}>
-                        <Badge color={theme.colors.white, '0.2'} size={52}>
+                    <Badge color={appConsumer.theme.colors.white, '0.2'} size={74}>
+                        <Badge color={appConsumer.theme.colors.white, '0.2'} size={52}>
                         </Badge>
                     </Badge>
                 </Block>
@@ -26,13 +28,17 @@ export default class Main extends Component {
                     <Text size={theme.sizes.base} spacing={0.4} medium white>Safe Driver Trophy!</Text>
                 </Block>
             </LinearGradient>
+            )}
+            </AppConsumer>
         )
     }
     renderTopHeader() {
         return (
+            <AppConsumer>
+            {appConsumer => (
             <View style={styles.container} >
                 <View style={styles.background} >
-                    <LinearGradient colors={[theme.colors.primary, theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
+                    <LinearGradient colors={[appConsumer.theme.colors.primary, appConsumer.theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
                         <View style={styles.slider}>
                             <Block center>
                                 <CircularProgress
@@ -42,8 +48,8 @@ export default class Main extends Component {
                                     rotation={0}
                                     arcSweepAngle={360}
                                     width={theme.sizes.base / 4}
-                                    tintColor={theme.colors.white}
-                                    backgroundColor={theme.colors.secondary}
+                                    tintColor={appConsumer.theme.colors.white}
+                                    backgroundColor={appConsumer.theme.colors.secondary}
                                     backgroundWidth={theme.sizes.base / 8}
                                 >{() => (
                                     <Block center middle>
@@ -56,8 +62,9 @@ export default class Main extends Component {
                         </View>
                     </LinearGradient>
                 </View>
-
             </View>
+                            )}
+                            </AppConsumer>
         )
 
     }
@@ -65,7 +72,8 @@ export default class Main extends Component {
     render() {
         const { navigation } = this.props;
         return (
-
+            <AppConsumer>
+                {appConsumer => (
             <ScrollView >
                 {this.renderTopHeader()}
                 {this.renderReward()}
@@ -115,7 +123,8 @@ export default class Main extends Component {
                     </Button>
                 </Block>
             </ScrollView>
-
+                )}
+                </AppConsumer>
         )
     }
 }

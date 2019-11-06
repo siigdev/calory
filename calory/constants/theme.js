@@ -31,6 +31,36 @@ const greenTheme = {
     gray3: "#F7F8FA",
   }
 }
+const redTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    accent: "#ed5353",
+    primary: "#DA4A55",
+    secondary: "#8aff57",
+    tertiary: "#fff394",
+    black: "#273445",
+    white: "#FFFFFF",
+    gray: "#d4d4d4",
+    gray2: "#abacae",
+    gray3: "#F7F8FA",
+  }
+}
+const yellowTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    accent: "#ed5353",
+    primary: "#E47D3C",
+    secondary: "#8aff57",
+    tertiary: "#fff394",
+    black: "#273445",
+    white: "#FFFFFF",
+    gray: "#d4d4d4",
+    gray2: "#abacae",
+    gray3: "#F7F8FA",
+  }
+}
 
 
 const colors = {
@@ -86,4 +116,4 @@ const fonts = {
   },
 };
 
-export { blueTheme, greenTheme, colors, sizes, fonts };
+export { blueTheme, greenTheme, redTheme, yellowTheme, colors, sizes, fonts };
