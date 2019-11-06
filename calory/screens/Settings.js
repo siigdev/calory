@@ -7,7 +7,6 @@ import { Block, Text, Input, Button, Switch, Divider, ColorPalette } from '../co
 import Slider from 'react-native-slider'
 import DatePicker from 'react-native-datepicker'
 import { AppConsumer } from '../AppContextProvider'
-import { BlueGray, LightGreen } from '../constants/themes'
 
 import { theme } from '../constants';
 
@@ -30,7 +29,7 @@ export default class Settings extends Component {
         return (
             <AppConsumer>
                 {appConsumer => (
-                    <ScrollView showsVerticalScrollIndicator={false} >
+                    <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: appConsumer.theme.colors.primary}}>
                         <Block padding={[0, theme.sizes.base * 2]}>
                             <Block middle>
                                 <Input
@@ -90,18 +89,27 @@ export default class Settings extends Component {
                                 <Divider margin={0} />
 
                                 <ColorPalette
-                                    onChange={color => selectedColor = color}
+                                    onChange={color => {
+                                        selectedColor = color;
+                                        switch (color) {
+                                            case '#6EBEE7':
+                                                    appConsumer.updateTheme(theme.blueTheme);
+                                                    break;
+                                            case '#62B33E':
+                                                    appConsumer.updateTheme(theme.greenTheme);
+                                                    break;
+                                            case '#DA4A55':
+                                                    appConsumer.updateTheme(theme.blueTheme);
+                                                    break;
+                                            case '#E47D3C':
+                                                    appConsumer.updateTheme(theme.greenTheme);
+                                                    break;
+                                            }}}
                                     value={selectedColor}
-                                    colors={['#6EBEE7', '#62B33E', '#DA4A55', '#E47D3C', '#7639F5']}
+                                    colors={['#6EBEE7', '#62B33E', '#DA4A55', '#E47D3C']}
                                     title={"Controlled Color Palette:"}
                                     icon={<Text white>✔</Text>}
                                 />
-                                <Button onPress={() => appConsumer.updateTheme(BlueGray)} title="Blue Gray Theme"><Text style={{
-                                    color: appConsumer.theme.colors.primary
-                                }}>Heya</Text></Button>
-                                <Button onPress={() => appConsumer.updateTheme(LightGreen)} title="Light Green Theme"><Text>Heya</Text></Button>
-
-
                                 <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
                                     <Text gray2>Newsletter</Text>
                                     <Switch

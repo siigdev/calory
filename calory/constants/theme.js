@@ -1,3 +1,22 @@
+import { DefaultTheme } from "react-native-paper";
+
+const blueTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: '#607d8b'
+    }
+}
+
+const greenTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: '#8bc34a'
+    }
+}
+
+
 const colors = {
     accent: "#ed5353",
     primary: "#64baff",
@@ -51,4 +70,4 @@ const colors = {
     },
   };
   
-  export { colors, sizes, fonts };
+  export { blueTheme, greenTheme, colors, sizes, fonts };

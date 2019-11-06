@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { BlueGray, LightGreen } from './constants/themes'
+import { theme } from './constants'
 
 const Context = React.createContext();
 
 export class AppContextProvider extends Component {
     state = {
-        theme: LightGreen,
+        theme: theme.greenTheme,
         updateTheme: (theme) => {
             this.setState({ theme: theme })
         }
