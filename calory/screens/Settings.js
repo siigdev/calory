@@ -6,6 +6,8 @@ import { AsyncStorage, ActivityIndicator, ScrollView, StyleSheet } from 'react-n
 import { Block, Text, Input, Button, Switch, Divider, ColorPalette } from '../components'
 import Slider from 'react-native-slider'
 import DatePicker from 'react-native-datepicker'
+import { AppConsumer } from '../AppContextProvider'
+import { BlueGray, LightGreen } from '../constants/themes'
 
 import { theme } from '../constants';
 
@@ -26,93 +28,102 @@ export default class Settings extends Component {
         const { loading, errors } = this.state;
         let selectedColor = '#C0392B';
         return (
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <Block padding={[0, theme.sizes.base * 2]}>
-                    <Block middle>
-                        <Input
-                            label="Email"
-                            style={[styles.input]}
-                            defaultValue={this.state.username}
-                            onChangeText={text => this.setState({ weight: text })}
-                        />
-                        <Text gray2 style={{ marginBottom: 10 }}>Weight</Text>
-                        <Slider
-                            minimumValue={50}
-                            maximumValue={150}
-                            step={1}
-                            style={{ height: 19 }}
-                            thumbStyle={styles.thumb}
-                            trackStyle={{ height: 6, borderRadius: 6 }}
-                            minimumTrackTintColor={theme.colors.secondary}
-                            maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
-                            value={this.state.weight}
-                            onValueChange={value => this.setState({ weight: value })}
-                        />
-                        <Text caption gray right>{this.state.weight}kg</Text>
-                        <Text gray2 style={{ marginBottom: 10 }}>Height</Text>
-                        <Slider
-                            minimumValue={100}
-                            maximumValue={220}
-                            step={1}
-                            style={{ height: 19 }}
-                            thumbStyle={styles.thumb}
-                            trackStyle={{ height: 6, borderRadius: 6 }}
-                            minimumTrackTintColor={theme.colors.secondary}
-                            maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
-                            value={this.state.height}
-                            onValueChange={value => this.setState({ height: value })}
-                        />
-                        <Text caption gray right>{this.state.height}cm</Text>
+            <AppConsumer>
+                {appConsumer => (
+                    <ScrollView showsVerticalScrollIndicator={false} >
+                        <Block padding={[0, theme.sizes.base * 2]}>
+                            <Block middle>
+                                <Input
+                                    label="Email"
+                                    style={[styles.input]}
+                                    defaultValue={this.state.username}
+                                    onChangeText={text => this.setState({ weight: text })}
+                                />
+                                <Text gray2 style={{ marginBottom: 10 }}>Weight</Text>
+                                <Slider
+                                    minimumValue={50}
+                                    maximumValue={150}
+                                    step={1}
+                                    style={{ height: 19 }}
+                                    thumbStyle={styles.thumb}
+                                    trackStyle={{ height: 6, borderRadius: 6 }}
+                                    minimumTrackTintColor={theme.colors.secondary}
+                                    maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
+                                    value={this.state.weight}
+                                    onValueChange={value => this.setState({ weight: value })}
+                                />
+                                <Text caption gray right>{this.state.weight}kg</Text>
+                                <Text gray2 style={{ marginBottom: 10 }}>Height</Text>
+                                <Slider
+                                    minimumValue={100}
+                                    maximumValue={220}
+                                    step={1}
+                                    style={{ height: 19 }}
+                                    thumbStyle={styles.thumb}
+                                    trackStyle={{ height: 6, borderRadius: 6 }}
+                                    minimumTrackTintColor={theme.colors.secondary}
+                                    maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
+                                    value={this.state.height}
+                                    onValueChange={value => this.setState({ height: value })}
+                                />
+                                <Text caption gray right>{this.state.height}cm</Text>
 
-                        <DatePicker
-                            style={{ width: 200 }}
-                            date={this.state.date}
-                            mode="date"
-                            format="YYYY-MM-DD"
-                            minDate="2016-05-01"
-                            maxDate="2016-06-01"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            showIcon={false}
-                            customStyles={{
-                                dateInput: {
-                                    borderWidth: 0,
-                                    marginLeft: 36
-                                }
-                            }}
-                            onDateChange={(date) => { this.setState({ date: date }) }}
-                        />
+                                <DatePicker
+                                    style={{ width: 200 }}
+                                    date={this.state.date}
+                                    mode="date"
+                                    format="YYYY-MM-DD"
+                                    minDate="2016-05-01"
+                                    maxDate="2016-06-01"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    showIcon={false}
+                                    customStyles={{
+                                        dateInput: {
+                                            borderWidth: 0,
+                                            marginLeft: 36
+                                        }
+                                    }}
+                                    onDateChange={(date) => { this.setState({ date: date }) }}
+                                />
+
+                                <Divider margin={0} />
+
+                                <ColorPalette
+                                    onChange={color => selectedColor = color}
+                                    value={selectedColor}
+                                    colors={['#6EBEE7', '#62B33E', '#DA4A55', '#E47D3C', '#7639F5']}
+                                    title={"Controlled Color Palette:"}
+                                    icon={<Text white>✔</Text>}
+                                />
+                                <Button onPress={() => appConsumer.updateTheme(BlueGray)} title="Blue Gray Theme"><Text style={{
+                                    color: appConsumer.theme.colors.primary
+                                }}>Heya</Text></Button>
+                                <Button onPress={() => appConsumer.updateTheme(LightGreen)} title="Light Green Theme"><Text>Heya</Text></Button>
 
 
-                        <Divider margin={0} />
+                                <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
+                                    <Text gray2>Newsletter</Text>
+                                    <Switch
+                                        value={this.state.newsletter}
+                                        onValueChange={value => this.setState({ newsletter: value })}
+                                    />
+                                </Block>
+                                <Button gradient onPress={() => console.warn("nothing")}>
+                                    {loading ?
+                                        <ActivityIndicator size="small" color="white" /> :
+                                        <Text bold white center>Save Settings</Text>
+                                    }
+                                </Button>
 
-                        <ColorPalette
-                            onChange={color => selectedColor = color}
-                            value={selectedColor}
-                            colors={['#6EBEE7', '#62B33E', '#DA4A55', '#E47D3C', '#7639F5']}
-                            title={"Controlled Color Palette:"}
-                            icon={<Text white>✔</Text>}
-                        />
-
-                        <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
-                            <Text gray2>Newsletter</Text>
-                            <Switch
-                                value={this.state.newsletter}
-                                onValueChange={value => this.setState({ newsletter: value })}
-                            />
+                                <Button title="Actually, sign me out :)" onPress={this._signOutAsync}>
+                                    <Text bold black center>Log Out</Text>
+                                </Button>
+                            </Block>
                         </Block>
-                        <Button gradient onPress={() => console.warn("nothing")}>
-                            {loading ?
-                                <ActivityIndicator size="small" color="white" /> :
-                                <Text bold white center>Save Settings</Text>
-                            }
-                        </Button>
-                        <Button title="Actually, sign me out :)" onPress={this._signOutAsync}>
-                            <Text bold black center>Log Out</Text>
-                        </Button>
-                    </Block>
-                </Block>
-            </ScrollView>
+                    </ScrollView>
+                )}
+            </AppConsumer>
         )
     }
 }

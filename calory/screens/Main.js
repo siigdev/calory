@@ -4,59 +4,60 @@ import { ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'reac
 import { LinearGradient } from 'expo-linear-gradient';
 import { CircularProgress } from 'react-native-circular-progress';
 
+
 import { theme } from '../constants';
 const window = Dimensions.get('window');
 export default class Main extends Component {
 
-    renderReward(){
+    renderReward() {
         return (
             <LinearGradient
-            end={{ x: 1, y: 0 }}
-            colors={["#FF988A", theme.colors.accent]}
-          >
-            <Block middle flex={0.4}>
-              <Badge color={theme.colors.white, '0.2'} size={74}>
-                <Badge color={theme.colors.white, '0.2'} size={52}>
-                </Badge>
-              </Badge>
-            </Block>
-            <Block middle>
-              <Text size={theme.sizes.base} spacing={0.4} medium white>Wohoo!</Text>
-              <Text size={theme.sizes.base} spacing={0.4} medium white>Safe Driver Trophy!</Text>
-            </Block>
-          </LinearGradient>
+                end={{ x: 1, y: 0 }}
+                colors={["#FF988A", theme.colors.accent]}
+            >
+                <Block middle flex={0.4}>
+                    <Badge color={theme.colors.white, '0.2'} size={74}>
+                        <Badge color={theme.colors.white, '0.2'} size={52}>
+                        </Badge>
+                    </Badge>
+                </Block>
+                <Block middle>
+                    <Text size={theme.sizes.base} spacing={0.4} medium white>Wohoo!</Text>
+                    <Text size={theme.sizes.base} spacing={0.4} medium white>Safe Driver Trophy!</Text>
+                </Block>
+            </LinearGradient>
         )
     }
     renderTopHeader() {
-        return(
+        return (
             <View style={styles.container} >
-                    <View style={styles.background} >
-                        <LinearGradient colors={[theme.colors.primary, theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
-                            <View style={styles.slider}>
-                                <Block center>
-                                    <CircularProgress
-                                        size={150}
-                                        fill={60}
-                                        lineCap="round"
-                                        rotation={0}
-                                        arcSweepAngle={360}
-                                        width={theme.sizes.base / 4}
-                                        tintColor={theme.colors.white}
-                                        backgroundColor={theme.colors.secondary}
-                                        backgroundWidth={theme.sizes.base / 8}
-                                    >{() => (
-                                        <Block center middle>
-                                            <Text white h3 small>322</Text>
-                                            <Text white h4 caption transform="uppercase">CALORIES LEFT</Text>
-                                        </Block>
-                                    )}
-                                    </CircularProgress>
-                                </Block>
-                            </View>
-                        </LinearGradient>
-                    </View>
-
+                <View style={styles.background} >
+                    <LinearGradient colors={[theme.colors.primary, theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
+                        <View style={styles.slider}>
+                            <Block center>
+                                <CircularProgress
+                                    size={150}
+                                    fill={60}
+                                    lineCap="round"
+                                    rotation={0}
+                                    arcSweepAngle={360}
+                                    width={theme.sizes.base / 4}
+                                    tintColor={theme.colors.white}
+                                    backgroundColor={theme.colors.secondary}
+                                    backgroundWidth={theme.sizes.base / 8}
+                                >{() => (
+                                    <Block center middle>
+                                        <Text white h3 small>322</Text>
+                                        <Text white h4 caption transform="uppercase">CALORIES LEFT</Text>
+                                    </Block>
+                                )}
+                                </CircularProgress>
+                            </Block>
+                        </View>
+                    </LinearGradient>
                 </View>
+
+            </View>
         )
 
     }
@@ -64,7 +65,8 @@ export default class Main extends Component {
     render() {
         const { navigation } = this.props;
         return (
-            <ScrollView>
+
+            <ScrollView >
                 {this.renderTopHeader()}
                 {this.renderReward()}
                 <Block padding={[0, theme.sizes.base * 2]}>
@@ -109,11 +111,11 @@ export default class Main extends Component {
                         </Block>
                     </Card>
                     <Button title="Settings" onPress={() => navigation.navigate('Settings')}>
-                    <Text bold black center>Settings</Text>
+                        <Text bold black center>Settings</Text>
                     </Button>
-                    
                 </Block>
             </ScrollView>
+
         )
     }
 }
