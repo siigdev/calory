@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Text, Block, Progress } from '../components'
+import { Text, Block, Input, Progress, Divider, Button } from '../components'
 import ApiKeys from '../constants/ApiKeys'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 
 import { theme } from '../constants';
 
@@ -9,12 +9,21 @@ const appId = ApiKeys.edamamConfig.appId;
 const appKey = ApiKeys.edamamConfig.applicationKey;
 
 export default class ProductPage extends Component {
+  state = {
+    grams: '100',
+    calories: '',
+    weight: '75',
+    swimming: '21',
+    walking: ''
+
+  }
   componentDidMount() {
     const data = this.props.navigation.getParam('data', 'error');
     return fetch(`https://api.edamam.com/api/food-database/parser?upc=${data}&app_id=${appId}&app_key=${appKey}`)
       .then((response) => response.json())
       .then((responseJson) => {
-        alert(`Der er sgu ${responseJson.hints[0].food.nutrients.ENERC_KCAL} Kcal i den der`);
+        this.setState({ 
+          calories: responseJson.hints[0].food.nutrients.ENERC_KCAL, });
         this.setState({
           isLoading: false,
           dataSource: responseJson.parsed,
@@ -25,33 +34,79 @@ export default class ProductPage extends Component {
       });
 
   }
-
   render() {
     return (
-      <Block>
-        <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
-          <Progress value={0.81} />
-          <Text>Protein</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Block row><Input
+          label="Grams"
+          style={[styles.input]}
+          keyboardType = 'phone-pad'
+          defaultValue={this.state.grams}
+          onChangeText={text => this.setState({ grams: text })}
+        />
         </Block>
-        <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
-          <Text>Carbohydrates</Text>
+
+        <Block row>
+          <Block center flex={1}>
+            <Text size={20} spacing={1} primary>{this.calories/((this.state.swimming*this.state.weight)/200)} KM</Text>
+            <Text spacing={0.7}>Løb</Text>
+          </Block>
+
+          <Block center flex={1}>
+            <Text size={20} spacing={1} primary>1 KM</Text>
+            <Text spacing={0.7}>Svømning</Text>
+          </Block>
+
+          <Block center flex={1}>
+            <Text size={20} spacing={1} primary>2.786 KM</Text>
+            <Text spacing={0.7}>Cykling</Text>
+          </Block>
         </Block>
-        <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
-          <Text>Fat</Text>
+
+        <Divider margin={0} />
+
+        <Block padding={[0, theme.sizes.base * 2]}>
+          <Block style={{ marginBottom: theme.sizes.base }}>
+            <Block row space="between" style={{ paddingLeft: 6 }}>
+              <Text body spacing={0.7}>Protein</Text>
+              <Text caption spacing={0.7}>55%</Text>
+            </Block>
+            <Progress value={0.55} />
+          </Block>
+
+          <Block style={{ marginBottom: theme.sizes.base }}>
+            <Block row space="between" style={{ paddingLeft: 6 }}>
+              <Text body spacing={0.7}>Carbohydrates</Text>
+              <Text caption spacing={0.7}>35%</Text>
+            </Block>
+            <Progress value={0.35} />
+          </Block>
+
+          <Block style={{ marginBottom: theme.sizes.base }}>
+            <Block row space="between" style={{ paddingLeft: 6 }}>
+              <Text body spacing={0.7}>Fat</Text>
+              <Text caption spacing={0.7}>10%</Text>
+            </Block>
+            <Progress value={0.10} />
+          </Block>
+
+          <Divider margin={0} />
+
+          <Block row center space="between">
+            <Text>Total Driver Discount</Text>
+            <Text size={20} spacing={1} primary>$6.71</Text>
+          </Block>
         </Block>
-      </Block>
+      </ScrollView >
     )
   }
 }
 
 const styles = StyleSheet.create({
-  thumb: {
-    width: theme.sizes.base,
-    height: theme.sizes.base,
-    borderRadius: theme.sizes.base,
-    borderColor: 'white',
-    borderWidth: 3,
-    backgroundColor: theme.colors.secondary,
-},
-
-});
+  input: {
+      borderRadius: 0,
+      borderWidth: 0,
+      borderBottomColor: theme.colors.gray,
+      borderBottomWidth: 1
+  }
+})  
