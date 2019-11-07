@@ -41,7 +41,7 @@ export default class Settings extends Component {
                                     maximumValue={150}
                                     step={1}
                                     style={{ height: 19 }}
-                                    thumbStyle={styles.thumb}
+                                    thumbStyle={styles.thumb, {backgroundColor: appConsumer.theme.colors.primary}}
                                     trackStyle={{ height: 6, borderRadius: 6 }}
                                     minimumTrackTintColor={appConsumer.theme.colors.secondary}
                                     maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
@@ -55,7 +55,7 @@ export default class Settings extends Component {
                                     maximumValue={220}
                                     step={1}
                                     style={{ height: 19 }}
-                                    thumbStyle={styles.thumb}
+                                    thumbStyle={styles.thumb, {backgroundColor: appConsumer.theme.colors.primary}}
                                     trackStyle={{ height: 6, borderRadius: 6 }}
                                     minimumTrackTintColor={appConsumer.theme.colors.secondary}
                                     maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
