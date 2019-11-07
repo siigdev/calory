@@ -11,7 +11,7 @@ import { theme } from '../constants';
 export default class Settings extends Component {
     state = {
         gender: 'Male',
-        username: "RANDOM",
+        name: '',
         weight: 75,
         height: 180,
         newsletter: true,
@@ -27,22 +27,24 @@ export default class Settings extends Component {
                 gender: snapshot.val().gender})
         });
     }
+    handleEdit(text) {
+        this.setState({ name: text });
+      }
+    renderEdit(value) {
+        const { name, editing } = this.state;
 
-    renderEdit(name) {
-        const { profile, editing } = this.state;
-
-        if (editing === name) {
+        if (editing === value) {
             return (
                 <TextInput
                     autoFocus={true}
-                    defaultValue={profile.name}
-                    onChangeText={text => this.handleEdit([name], text)}
+                    defaultValue={name}
+                    onChangeText={text => this.handleEdit(text)}
                     style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.black, marginRight: 20 }}
                 />
             )
         }
 
-        return <Text >{profile.name}</Text>
+        return <Text >{name}</Text>
     }
     toggleEdit(name) {
         const { editing } = this.state;
@@ -79,11 +81,11 @@ export default class Settings extends Component {
                             <Block middle>
                                 <Block row space="between" margin={[10, 0]} style={styles.inputRow}>
                                     <Block>
-                                        <Text gray2 style={{ marginBottom: 10 }}>Username</Text>
-                                        {this.renderEdit('username')}
+                                        <Text gray2 style={{ marginBottom: 10 }}>name</Text>
+                                        {this.renderEdit('name')}
                                     </Block>
-                                    <Text medium primary onPress={() => this.toggleEdit('username')}>
-                                        {editing === 'username' ? 'Save' : 'Edit'}
+                                    <Text medium primary onPress={() => this.toggleEdit('name')}>
+                                        {editing === 'name' ? 'Save' : 'Edit'}
                                     </Text>
                                 </Block>
                                 <Text gray2 style={{ marginBottom: 10 }}>Weight</Text>
