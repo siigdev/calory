@@ -10,6 +10,7 @@ const appKey = ApiKeys.edamamConfig.applicationKey;
 
 export default class ProductPage extends Component {
   state = {
+    name: '',
     grams: '100',
     calories: '',
     weight: '75',
@@ -23,6 +24,7 @@ export default class ProductPage extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ 
+          name: responseJson.hints[0].food.label,
           calories: responseJson.hints[0].food.nutrients.ENERC_KCAL, });
         this.setState({
           isLoading: false,
@@ -37,6 +39,8 @@ export default class ProductPage extends Component {
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Text h1 center bold>{this.state.name} </Text>
+        <Text h3 center primary>{this.state.calories} kcal / 100 g</Text>
         <Block row><Input
           label="Grams"
           style={[styles.input]}
