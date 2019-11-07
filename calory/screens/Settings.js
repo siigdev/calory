@@ -75,6 +75,7 @@ export default class Settings extends Component {
     _signOutAsync = async () => {
         const { navigation } = this.props;
         await AsyncStorage.clear();
+        firebase.auth().signOut();
         navigation.navigate('Welcome');
     }
     render() {
