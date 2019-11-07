@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Text, StyleSheet } from "react-native";
 
 import { theme } from "../constants";
+import { AppConsumer } from "../AppContextProvider";
 
 export default class Typography extends Component {
   render() {
@@ -41,47 +42,47 @@ export default class Typography extends Component {
       children,
       ...props
     } = this.props;
-
-    const textStyles = [
-      styles.text,
-      h1 && styles.h1,
-      h2 && styles.h2,
-      h3 && styles.h3,
-      title && styles.title,
-      body && styles.body,
-      caption && styles.caption,
-      small && styles.small,
-      size && { fontSize: size },
-      transform && { textTransform: transform },
-      align && { textAlign: align },
-      height && { lineHeight: height },
-      spacing && { letterSpacing: spacing },
-      weight && { fontWeight: weight },
-      regular && styles.regular,
-      bold && styles.bold,
-      semibold && styles.semibold,
-      medium && styles.medium,
-      light && styles.light,
-      center && styles.center,
-      right && styles.right,
-      color && styles[color],
-      color && !styles[color] && { color },
-      // color shortcuts
-      accent && styles.accent,
-      primary && styles.primary,
-      secondary && styles.secondary,
-      tertiary && styles.tertiary,
-      black && styles.black,
-      white && styles.white,
-      gray && styles.gray,
-      gray2 && styles.gray2,
-      style // rewrite predefined styles
-    ];
-
     return (
-      <Text style={textStyles} {...props}>
-        {children}
-      </Text>
+      <AppConsumer>
+        {appConsumer => (
+          <Text style={[
+            styles.text,
+            h1 && styles.h1,
+            h2 && styles.h2,
+            h3 && styles.h3,
+            title && styles.title,
+            body && styles.body,
+            caption && styles.caption,
+            small && styles.small,
+            size && { fontSize: size },
+            transform && { textTransform: transform },
+            align && { textAlign: align },
+            height && { lineHeight: height },
+            spacing && { letterSpacing: spacing },
+            weight && { fontWeight: weight },
+            regular && styles.regular,
+            bold && styles.bold,
+            semibold && styles.semibold,
+            medium && styles.medium,
+            light && styles.light,
+            center && styles.center,
+            right && styles.right,
+            color && styles[color],
+            color && !styles[color] && { color },
+            accent && styles.accent,
+            primary && {color: appConsumer.theme.colors.primary},
+            secondary && {color: appConsumer.theme.colors.secondary},
+            tertiary && {color: appConsumer.theme.colors.tertiary},
+            black && {color: appConsumer.theme.colors.black},
+            white && {color: appConsumer.theme.colors.white},
+            gray && {color: appConsumer.theme.colors.gray},
+            gray2 && {color: appConsumer.theme.colors.gray2},
+            style
+          ]} {...props}>
+            {children}
+          </Text>
+        )}
+      </AppConsumer>
     );
   }
 }
@@ -111,15 +112,6 @@ const styles = StyleSheet.create({
   // position
   center: { textAlign: "center" },
   right: { textAlign: "right" },
-  // colors
-  accent: { color: theme.colors.accent },
-  primary: { color: theme.colors.primary },
-  secondary: { color: theme.colors.secondary },
-  tertiary: { color: theme.colors.tertiary },
-  black: { color: theme.colors.black },
-  white: { color: theme.colors.white },
-  gray: { color: theme.colors.gray },
-  gray2: { color: theme.colors.gray2 },
   // fonts
   h1: theme.fonts.h1,
   h2: theme.fonts.h2,

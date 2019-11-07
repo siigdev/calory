@@ -57,7 +57,7 @@ export default class Settings extends Component {
                                         <Text gray2 style={{ marginBottom: 10 }}>Username</Text>
                                         {this.renderEdit('username')}
                                     </Block>
-                                    <Text medium secondary onPress={() => this.toggleEdit('username')}>
+                                    <Text medium primary onPress={() => this.toggleEdit('username')}>
                                         {editing === 'username' ? 'Save' : 'Edit'}
                                     </Text>
                                 </Block>
