@@ -19,6 +19,15 @@ export default class Settings extends Component {
         editing: null,
         errors: []
     }
+    componentWillMount(){
+        const currUser = firebase.auth().currentUser.uid;
+        
+        firebase.database().ref('users/').child(currUser).once('value', (snapshot) => {
+            this.setState({
+                gender: snapshot.val().gender})
+        });
+    }
+
     renderEdit(name) {
         const { profile, editing } = this.state;
 
@@ -40,9 +49,12 @@ export default class Settings extends Component {
         this.setState({ editing: !editing ? name : null });
     }
     saveSettings() {
-        const { profile, gender, height } = this.state;
-        firebase.database().ref('users/').set({
-            gender: this.state.gender
+        const currUser = firebase.auth().currentUser.uid;
+        firebase.database().ref('users/').child(currUser).set({
+            name: this.state.name,
+            gender: this.state.gender,
+            height: this.state.height,
+            weight: this.state.weight,
         }).then((data) => {
             //success callback
             console.log('data ', data)
