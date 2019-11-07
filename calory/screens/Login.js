@@ -23,7 +23,7 @@ export default class Login extends Component {
         Keyboard.dismiss();
         this.setState({ isLoading: true });
         try {
-            firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+            firebase.auth().signInWithEmailAndPassword(email.replace(/\s/g, ''), password).then(() => {
                 this._signInAsync();
             })
                 .catch(error => {
