@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AsyncStorage, ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Block, Text, Input, Button } from '../components'
 import firebase from 'firebase';
+import { AppConsumer } from '../AppContextProvider'
 
 import { theme } from '../constants';
 
@@ -42,11 +43,13 @@ export default class Login extends Component {
         const { navigation } = this.props;
         const { isLoading } = this.state;
         return (
+            <AppConsumer>
+            {appConsumer => (
             <KeyboardAvoidingView style={styles.login} behavior="padding">
                 <Block animation="zoomIn" duration={400} padding={[0, theme.sizes.base * 2]}>
 
                     {isLoading ?
-                        <Block middle><ActivityIndicator size={100} color={theme.colors.primary} /></Block> :
+                        <Block middle><ActivityIndicator size={100} color={appConsumer.theme.colors.primary} /></Block> :
                         <Block middle>
                             <Input
                                 label="Email"
@@ -74,6 +77,8 @@ export default class Login extends Component {
                     }
                 </Block>
             </KeyboardAvoidingView>
+            )}
+            </AppConsumer>
         )
     }
 }
