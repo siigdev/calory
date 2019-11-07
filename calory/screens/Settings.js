@@ -90,21 +90,21 @@ export default class Settings extends Component {
                                     onChange={color => {
                                         selectedColor = color;
                                         switch (color) {
-                                            case '#6EBEE7':
+                                            case '#64baff':
                                                     appConsumer.updateTheme(theme.blueTheme);
                                                     break;
-                                            case '#62B33E':
+                                            case '#50CA58':
                                                     appConsumer.updateTheme(theme.greenTheme);
                                                     break;
-                                            case '#DA4A55':
+                                            case '#FF6559':
                                                     appConsumer.updateTheme(theme.redTheme);
                                                     break;
-                                            case '#E47D3C':
+                                            case '#FFAE59':
                                                     appConsumer.updateTheme(theme.yellowTheme);
                                                     break;
                                             }}}
-                                    value={selectedColor}
-                                    colors={['#6EBEE7', '#62B33E', '#DA4A55', '#E47D3C']}
+                                    value={appConsumer.theme.colors.primary}
+                                    colors={['#64baff', '#50CA58', '#FF6559', '#FFAE59']}
                                     title={""}
                                     icon={<Text white>✔</Text>}
                                 />
