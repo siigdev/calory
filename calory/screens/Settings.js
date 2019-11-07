@@ -4,6 +4,7 @@ import { Block, Text, Input, Button, Switch, Divider, ColorPalette } from '../co
 import Slider from 'react-native-slider'
 import DatePicker from 'react-native-datepicker'
 import { AppConsumer } from '../AppContextProvider'
+import firebase from 'firebase';
 
 import { theme } from '../constants';
 
@@ -32,11 +33,23 @@ export default class Settings extends Component {
             )
         }
 
-        return <Text bold >{profile.name}</Text>
+        return <Text >{profile.name}</Text>
     }
     toggleEdit(name) {
         const { editing } = this.state;
         this.setState({ editing: !editing ? name : null });
+    }
+    saveSettings() {
+        const { profile, gender, height } = this.state;
+        firebase.database().ref('users/').set({
+            gender: this.state.gender
+        }).then((data) => {
+            //success callback
+            console.log('data ', data)
+        }).catch((error) => {
+            //error callback
+            console.log('error ', error)
+        })
     }
     _signOutAsync = async () => {
         const { navigation } = this.props;
@@ -90,11 +103,12 @@ export default class Settings extends Component {
                                 />
                                 <Text caption gray right>{this.state.height}cm</Text>
 
+                                <Text gray2 style={{ marginBottom: 10 }}>Birthday</Text>
                                 <DatePicker
                                     style={{ width: 200 }}
                                     date={this.state.date}
                                     mode="date"
-                                    format="YYYY-MM-DD"
+                                    format="MMMM Do YYYY"
                                     minDate="2016-05-01"
                                     maxDate="2016-06-01"
                                     confirmBtnText="Confirm"
@@ -102,8 +116,11 @@ export default class Settings extends Component {
                                     showIcon={false}
                                     customStyles={{
                                         dateInput: {
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'flex-start',
                                             borderWidth: 0,
-                                            marginLeft: 36
+                                            marginLeft: 0,
+                                            paddingLeft: 0
                                         }
                                     }}
                                     onDateChange={(date) => { this.setState({ date: date }) }}
@@ -114,7 +131,7 @@ export default class Settings extends Component {
                                     flexDirection: 'row',
                                     borderRadius: 14,
                                     borderWidth: 1,
-                                    justifyContent: 'space-between', 
+                                    justifyContent: 'space-between',
                                     borderColor: appConsumer.theme.colors.primary
                                 }}>
                                     <TouchableOpacity
@@ -166,7 +183,7 @@ export default class Settings extends Component {
                                         onValueChange={value => this.setState({ newsletter: value })}
                                     />
                                 </Block>
-                                <Button gradient onPress={() => console.warn("nothing")}>
+                                <Button gradient onPress={() => this.saveSettings()}>
                                     {loading ?
                                         <ActivityIndicator size="small" color="white" /> :
                                         <Text bold white center>Save Settings</Text>
