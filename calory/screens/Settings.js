@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
+import { AsyncStorage, ActivityIndicator, ScrollView, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Block, Text, Input, Button, Switch, Divider, ColorPalette } from '../components'
 import Slider from 'react-native-slider'
 import DatePicker from 'react-native-datepicker'
@@ -9,19 +9,42 @@ import { theme } from '../constants';
 
 export default class Settings extends Component {
     state = {
+        gender: 'Male',
         username: "RANDOM",
         weight: 75,
         height: 180,
         newsletter: true,
+        profile: { name: 'Sebastian' },
+        editing: null,
         errors: []
+    }
+    renderEdit(name) {
+        const { profile, editing } = this.state;
+
+        if (editing === name) {
+            return (
+                <TextInput
+                    autoFocus={true}
+                    defaultValue={profile.name}
+                    onChangeText={text => this.handleEdit([name], text)}
+                    style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.black, marginRight: 20 }}
+                />
+            )
+        }
+
+        return <Text bold >{profile.name}</Text>
+    }
+    toggleEdit(name) {
+        const { editing } = this.state;
+        this.setState({ editing: !editing ? name : null });
     }
     _signOutAsync = async () => {
         const { navigation } = this.props;
         await AsyncStorage.clear();
         navigation.navigate('Welcome');
-    };
+    }
     render() {
-        const { loading, errors } = this.state;
+        const { loading, errors, profile, editing, gender } = this.state;
         let selectedColor = '#6EBEE7';
         return (
             <AppConsumer>
@@ -29,19 +52,22 @@ export default class Settings extends Component {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <Block padding={[0, theme.sizes.base * 2]}>
                             <Block middle>
-                                <Input
-                                    label="Email"
-                                    style={[styles.input]}
-                                    defaultValue={this.state.username}
-                                    onChangeText={text => this.setState({ weight: text })}
-                                />
+                                <Block row space="between" margin={[10, 0]} style={styles.inputRow}>
+                                    <Block>
+                                        <Text gray2 style={{ marginBottom: 10 }}>Username</Text>
+                                        {this.renderEdit('username')}
+                                    </Block>
+                                    <Text medium secondary onPress={() => this.toggleEdit('username')}>
+                                        {editing === 'username' ? 'Save' : 'Edit'}
+                                    </Text>
+                                </Block>
                                 <Text gray2 style={{ marginBottom: 10 }}>Weight</Text>
                                 <Slider
                                     minimumValue={50}
                                     maximumValue={150}
                                     step={1}
                                     style={{ height: 19 }}
-                                    thumbStyle={styles.thumb, {backgroundColor: appConsumer.theme.colors.primary}}
+                                    thumbStyle={styles.thumb, { backgroundColor: appConsumer.theme.colors.primary }}
                                     trackStyle={{ height: 6, borderRadius: 6 }}
                                     minimumTrackTintColor={appConsumer.theme.colors.secondary}
                                     maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
@@ -55,7 +81,7 @@ export default class Settings extends Component {
                                     maximumValue={220}
                                     step={1}
                                     style={{ height: 19 }}
-                                    thumbStyle={styles.thumb, {backgroundColor: appConsumer.theme.colors.primary}}
+                                    thumbStyle={styles.thumb, { backgroundColor: appConsumer.theme.colors.primary }}
                                     trackStyle={{ height: 6, borderRadius: 6 }}
                                     minimumTrackTintColor={appConsumer.theme.colors.secondary}
                                     maximumTrackTintColor="rgba(157, 163, 180, 0.10)"
@@ -83,31 +109,55 @@ export default class Settings extends Component {
                                     onDateChange={(date) => { this.setState({ date: date }) }}
                                 />
 
+
+                                <Block row style={{
+                                    flexDirection: 'row',
+                                    borderRadius: 14,
+                                    borderWidth: 1,
+                                    justifyContent: 'space-between', 
+                                    borderColor: appConsumer.theme.colors.primary
+                                }}>
+                                    <TouchableOpacity
+                                        style={[styles.button, styles.first, gender === 'Male' ? { backgroundColor: appConsumer.theme.colors.primary } : null]}
+                                        onPress={() => this.setState({ gender: 'Male' })}
+                                    >
+                                        <Text style={[styles.buttonText, gender === 'Male' ? styles.activeText : null]}>Male</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={[styles.button, styles.last, gender === 'Female' ? { backgroundColor: appConsumer.theme.colors.primary } : null]}
+                                        onPress={() => this.setState({ gender: 'Female' })}
+                                    >
+                                        <Text style={[styles.buttonText, gender === 'Female' ? styles.activeText : null]}>Female</Text>
+                                    </TouchableOpacity>
+                                </Block>
+
+
                                 <Divider margin={0} />
                                 <Block row center space="between">
                                     <Text>Theme</Text>
-                                <ColorPalette
-                                    onChange={color => {
-                                        selectedColor = color;
-                                        switch (color) {
-                                            case '#64baff':
+                                    <ColorPalette
+                                        onChange={color => {
+                                            selectedColor = color;
+                                            switch (color) {
+                                                case '#64baff':
                                                     appConsumer.updateTheme(theme.blueTheme);
                                                     break;
-                                            case '#50CA58':
+                                                case '#50CA58':
                                                     appConsumer.updateTheme(theme.greenTheme);
                                                     break;
-                                            case '#FF6559':
+                                                case '#FF6559':
                                                     appConsumer.updateTheme(theme.redTheme);
                                                     break;
-                                            case '#FFAE59':
+                                                case '#FFAE59':
                                                     appConsumer.updateTheme(theme.yellowTheme);
                                                     break;
-                                            }}}
-                                    value={appConsumer.theme.colors.primary}
-                                    colors={['#64baff', '#50CA58', '#FF6559', '#FFAE59']}
-                                    title={""}
-                                    icon={<Text white>✔</Text>}
-                                />
+                                            }
+                                        }}
+                                        value={appConsumer.theme.colors.primary}
+                                        colors={['#64baff', '#50CA58', '#FF6559', '#FFAE59']}
+                                        title={""}
+                                        icon={<Text white>✔</Text>}
+                                    />
                                 </Block>
                                 <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
                                     <Text gray2>Newsletter</Text>
@@ -129,7 +179,8 @@ export default class Settings extends Component {
                             </Block>
                         </Block>
                     </ScrollView>
-                )}
+                )
+                }
             </AppConsumer>
         )
     }
@@ -144,12 +195,23 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderBottomWidth: 1
     },
-    header: {
-        paddingHorizontal: theme.sizes.base * 2,
+    activeText: {
+        color: '#FFF'
     },
-    avatar: {
-        height: theme.sizes.base * 2.2,
-        width: theme.sizes.base * 2.2,
+    first: {
+        borderTopLeftRadius: 13,
+        borderBottomLeftRadius: 13,
+    },
+
+    last: {
+        borderTopRightRadius: 13,
+        borderBottomRightRadius: 13,
+    },
+    button: {
+        flex: 1,
+        padding: 14,
+        alignContent: 'center',
+        alignItems: 'center',
     },
     inputs: {
         marginTop: theme.sizes.base * 0.7,
