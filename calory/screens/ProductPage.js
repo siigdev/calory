@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, Block, Input, Progress, Divider, Button, Card } from '../components'
+import { Text, Block, Input, Progress, Divider, Button } from '../components'
 import ApiKeys from '../constants/ApiKeys'
 import { StyleSheet, ScrollView, Picker } from 'react-native'
 
@@ -84,7 +84,7 @@ export default class ProductPage extends Component {
               </Block>
             </Block>
 
-            <Card shadow >
+            <Divider/>
 
             <Block >
               <Block style={{ marginBottom: theme.sizes.base }}>
@@ -122,7 +122,6 @@ export default class ProductPage extends Component {
                 <Text bold white center>Add to history</Text>
               </Button>
             </Block>
-            </Card>
         </Block>
       </ScrollView >
         )

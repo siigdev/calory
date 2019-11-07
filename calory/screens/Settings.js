@@ -46,12 +46,12 @@ export default class Settings extends Component {
                     autoFocus={true}
                     defaultValue={name}
                     onChangeText={text => this.handleEdit(text)}
-                    style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.black, marginRight: 20 }}
+                    style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.black, marginRight: 20, marginBottom: theme.sizes.base }}
                 />
             )
         }
 
-        return <Text >{name}</Text>
+        return <Text style={{marginBottom: theme.sizes.base}}>{name}</Text>
     }
     toggleEdit(name) {
         const { editing } = this.state;
@@ -174,7 +174,7 @@ export default class Settings extends Component {
 
                                     <Divider />
                                     <Block row center space="between">
-                                        <Text>Theme</Text>
+                                        <Text gray2>Theme</Text>
                                         <ColorPalette
                                             onChange={color => {
                                                 selectedColor = color;
@@ -199,14 +199,14 @@ export default class Settings extends Component {
                                             icon={<Text white>✔</Text>}
                                         />
                                     </Block>
-                                    <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
+                                    <Block row center space="between" style={{ marginBottom: theme.sizes.base }}>
                                         <Text gray2>Newsletter</Text>
                                         <Switch
                                             value={this.state.newsletter}
                                             onValueChange={value => this.setState({ newsletter: value })}
                                         />
                                     </Block>
-                                    <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
+                                    <Block row center space="between" style={{ marginBottom: theme.sizes.base }}>
                                         <Text gray2>Notifications</Text>
                                         <Switch
                                             value={this.state.notifications}
