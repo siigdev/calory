@@ -107,24 +107,11 @@ export default class Main extends Component {
                         </Block>
                     </Card>
                     <Card shadow >
-                        <Block center>
-                            <Block row>
-                                <Block center flex={0.8}>
-                                    <Text size={20} spacing={1} primary>79</Text>
-                                    <Text spacing={0.7}>Trips</Text>
-                                </Block>
-
-                                <Block center flex={2}>
-                                    <Text size={20} spacing={1} primary>123</Text>
-                                    <Text spacing={0.7}>Hours</Text>
-                                </Block>
-
-                                <Block center flex={0.8}>
-                                    <Text size={20} spacing={1} primary>2.786</Text>
-                                    <Text spacing={0.7}>Miles</Text>
-                                </Block>
-                            </Block>
-                        </Block>
+                    <Button onPress={() => navigation.navigate('Barcode')}>
+                                <Text gray caption center>
+                                    Scan something!
+                            </Text>
+                            </Button>
                     </Card>
                     <Button title="Settings" onPress={() => navigation.navigate('Settings')}>
                         <Text bold black center>Settings</Text>

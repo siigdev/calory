@@ -64,7 +64,7 @@ export default class Login extends Component {
                             <Button gradient onPress={() => this.loginHandler()}>
                                 <Text bold white center>Login</Text>
                             </Button>
-                            <Button onPress={() => navigation.navigate('Barcode')}>
+                            <Button onPress={() => navigation.navigate('ForgotPassword')}>
                                 <Text gray caption center>
                                     Forgot your password?
                             </Text>
