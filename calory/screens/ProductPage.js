@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Text, Block, Input, Progress, Divider, Button } from '../components'
+import { Text, Block, Input, Progress, Divider, Button, Card } from '../components'
 import ApiKeys from '../constants/ApiKeys'
-import { StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, Picker } from 'react-native'
 
 import { theme } from '../constants';
 
@@ -23,9 +23,10 @@ export default class ProductPage extends Component {
     return fetch(`https://api.edamam.com/api/food-database/parser?upc=${data}&app_id=${appId}&app_key=${appKey}`)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ 
+        this.setState({
           name: responseJson.hints[0].food.label,
-          calories: responseJson.hints[0].food.nutrients.ENERC_KCAL, });
+          calories: responseJson.hints[0].food.nutrients.ENERC_KCAL,
+        });
         this.setState({
           isLoading: false,
           dataSource: responseJson.parsed,
@@ -39,78 +40,118 @@ export default class ProductPage extends Component {
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text h1 center bold>{this.state.name} </Text>
-        <Text h3 center primary>{this.state.calories} kcal / 100 g</Text>
-        <Block row><Input
-          label="Grams"
-          style={[styles.input]}
-          keyboardType = 'phone-pad'
-          defaultValue={this.state.grams}
-          onChangeText={text => this.setState({ grams: text })}
-        />
-        </Block>
-
-        <Block row>
-          <Block center flex={1}>
-            <Text size={20} spacing={1} primary>{this.calories/((this.state.swimming*this.state.weight)/200)} KM</Text>
-            <Text spacing={0.7}>Løb</Text>
-          </Block>
-
-          <Block center flex={1}>
-            <Text size={20} spacing={1} primary>1 KM</Text>
-            <Text spacing={0.7}>Svømning</Text>
-          </Block>
-
-          <Block center flex={1}>
-            <Text size={20} spacing={1} primary>2.786 KM</Text>
-            <Text spacing={0.7}>Cykling</Text>
-          </Block>
-        </Block>
-
-        <Divider margin={0} />
-
         <Block padding={[0, theme.sizes.base * 2]}>
-          <Block style={{ marginBottom: theme.sizes.base }}>
-            <Block row space="between" style={{ paddingLeft: 6 }}>
-              <Text body spacing={0.7}>Protein</Text>
-              <Text caption spacing={0.7}>55%</Text>
+          <Text h1 center bold style={{ marginTop: 10 }}>{this.state.name} </Text>
+          <Text h3 center primary>{this.state.calories} kcal / 100 g</Text>
+          <Block row style={styles.container}>
+            <Block center flex={1}>
+              <Input
+                style={[styles.input]}
+                textAlign={'center'}
+                keyboardType='phone-pad'
+                defaultValue={this.state.grams}
+                onChangeText={text => this.setState({ grams: text })}
+              />
             </Block>
-            <Progress value={0.55} />
-          </Block>
-
-          <Block style={{ marginBottom: theme.sizes.base }}>
-            <Block row space="between" style={{ paddingLeft: 6 }}>
-              <Text body spacing={0.7}>Carbohydrates</Text>
-              <Text caption spacing={0.7}>35%</Text>
+            <Block center flex={1}>
+              <Picker
+                selectedValue={this.state.language}
+                style={[styles.picker]}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ language: itemValue })
+                }>
+                <Picker.Item label="Grams" value="grams" />
+                <Picker.Item label="Pieces" value="pieces" />
+              </Picker>
             </Block>
-            <Progress value={0.35} />
           </Block>
 
-          <Block style={{ marginBottom: theme.sizes.base }}>
-            <Block row space="between" style={{ paddingLeft: 6 }}>
-              <Text body spacing={0.7}>Fat</Text>
-              <Text caption spacing={0.7}>10%</Text>
+          
+            <Block row>
+              <Block center flex={1}>
+                <Text size={20} spacing={1} primary>100 KM</Text>
+                <Text spacing={0.7}>Løb</Text>
+              </Block>
+
+              <Block center flex={1}>
+                <Text size={20} spacing={1} primary>100 KM</Text>
+                <Text spacing={0.7}>Svømning</Text>
+              </Block>
+
+              <Block center flex={1}>
+                <Text size={20} spacing={1} primary>100 KM</Text>
+                <Text spacing={0.7}>Cykling</Text>
+              </Block>
             </Block>
-            <Progress value={0.10} />
-          </Block>
 
-          <Divider margin={0} />
+            <Card shadow >
 
-          <Block row center space="between">
-            <Text>Total Driver Discount</Text>
-            <Text size={20} spacing={1} primary>$6.71</Text>
-          </Block>
+            <Block >
+              <Block style={{ marginBottom: theme.sizes.base }}>
+                <Block row space="between" style={{ paddingLeft: 6 }}>
+                  <Text body spacing={0.7}>Protein</Text>
+                  <Text caption spacing={0.7}>55%</Text>
+                </Block>
+                <Progress value={0.55} />
+              </Block>
+
+              <Block style={{ marginBottom: theme.sizes.base }}>
+                <Block row space="between" style={{ paddingLeft: 6 }}>
+                  <Text body spacing={0.7}>Carbohydrates</Text>
+                  <Text caption spacing={0.7}>35%</Text>
+                </Block>
+                <Progress value={0.35} />
+              </Block>
+
+              <Block style={{ marginBottom: theme.sizes.base }}>
+                <Block row space="between" style={{ paddingLeft: 6 }}>
+                  <Text body spacing={0.7}>Fat</Text>
+                  <Text caption spacing={0.7}>10%</Text>
+                </Block>
+                <Progress value={0.10} />
+              </Block>
+
+              <Divider margin={0} />
+
+              <Block row center space="between">
+                <Text>Calories in total</Text>
+                <Text size={20} spacing={1} primary>{this.state.calories * this.state.grams / 100} kcal.</Text>
+              </Block>
+
+              <Button gradient onPress={() => this.saveSettings()}>
+                <Text bold white center>Add to history</Text>
+              </Button>
+            </Block>
+            </Card>
         </Block>
       </ScrollView >
-    )
-  }
-}
-
+        )
+      }
+    }
+    
 const styles = StyleSheet.create({
+          container: {
+          flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
   input: {
-      borderRadius: 0,
-      borderWidth: 0,
-      borderBottomColor: theme.colors.gray,
-      borderBottomWidth: 1
-  }
+          height: 40,
+        width: 100,
+        borderRadius: 3,
+        borderWidth: 0,
+        borderColor: theme.colors.gray,
+        borderWidth: 1
+      },
+  picker: {
+          alignContent: 'center',
+        textAlign: 'center',
+        alignItems: 'center',
+        height: 25,
+        width: 130,
+        borderRadius: 3,
+        borderWidth: 0,
+        borderColor: theme.colors.gray,
+        borderWidth: 1
+      }
 })  

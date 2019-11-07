@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../constants'
 
+import { AppConsumer } from '../AppContextProvider'
+
 import Block from './Block';
 
 class Progress extends Component {
@@ -10,11 +12,13 @@ class Progress extends Component {
     const { startColor, endColor, value, opacity, style, ...props } = this.props;
 
     return (
+      <AppConsumer>
+      {appConsumer => (
       <Block row center style={[styles.background, styles]} {...props}>
         <LinearGradient
           end={{ x: 1, y: 0 }}
           style={[styles.overlay, { flex: value }]}
-          colors={[startColor, endColor]}
+          colors={[appConsumer.theme.colors.primary, appConsumer.theme.colors.secondary]}
         >
           <LinearGradient
             end={{ x: 1, y: 0 }}
@@ -23,13 +27,13 @@ class Progress extends Component {
           />
         </LinearGradient>
       </Block>
+      )}
+      </AppConsumer>
     )
   }
 }
 
 Progress.defaultProps = {
-  startColor: theme.colors.primary,
-  endColor: theme.colors.secondary,
   value: 0.75,
   opacity: 0.2,
 }

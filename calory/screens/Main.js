@@ -4,10 +4,18 @@ import { ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'reac
 import { LinearGradient } from 'expo-linear-gradient';
 import { CircularProgress } from 'react-native-circular-progress';
 import { AppConsumer } from '../AppContextProvider'
+import firebase from 'firebase';
 
 import { theme } from '../constants';
 const window = Dimensions.get('window');
 export default class Main extends Component {
+    
+    componentWillMount() {
+        const { navigation } = this.props;
+        if (!firebase.auth().currentUser) {
+            navigation.navigate('Welcome')
+        }
+    }
 
     renderReward() {
         return (
@@ -77,7 +85,7 @@ export default class Main extends Component {
             <ScrollView >
                 {this.renderTopHeader()}
                 {this.renderReward()}
-                <Block padding={[0, theme.sizes.base * 2]}>
+                <Block padding={[0, theme.sizes.bas]}>
                     <Card shadow >
                         <Block center>
                             <Block row>
