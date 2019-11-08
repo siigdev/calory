@@ -49,14 +49,15 @@ export default class Settings extends Component {
             return (
                 <TextInput
                     autoFocus={true}
+                    
                     defaultValue={name}
                     onChangeText={text => this.handleEdit(text)}
-                    style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.black, marginRight: 20, marginBottom: theme.sizes.base }}
+                    style={{ height:25, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.black, marginRight: 20 }}
                 />
             )
         }
 
-        return <Text>{name}</Text>
+        return <Text style={{ height:25}}>{name}</Text>
     }
     toggleEdit(name) {
         const { editing } = this.state;
@@ -104,20 +105,20 @@ export default class Settings extends Component {
                                         <Image source={require('../assets/images/avatar.png')} style={styles.avatar}></Image>
                                         <Block row space="between" margin={[10, 0]} style={styles.inputRow}>
                                             <Block>
-                                                <Text gray2 style={{ marginBottom: 10 }}>Name</Text>
+                                                <Text gray2 style={{ marginBottom: 5 }}>Name</Text>
                                                 {this.renderEdit('name')}
                                             </Block>
-                                            <Text medium primary style={{ marginBottom: 10 }} onPress={() => this.toggleEdit('name')}>
+                                            <Text medium primary style={{ marginBottom: 5 }} onPress={() => this.toggleEdit('name')}>
                                                 {editing === 'name' ? 'Save' : 'Edit'}
                                             </Text>
                                         </Block>
                                         <Block row space="between" margin={[10, 0]} style={styles.inputRow}>
                                             <Block>
-                                                <Text gray2 style={{ marginBottom: 10 }}>Email</Text>
+                                                <Text gray2 style={{ marginBottom: 5 }}>Email</Text>
                                                 <Text style={{ marginBottom: theme.sizes.base }}>{email}</Text>
                                             </Block>
                                         </Block>
-                                        <Text gray2 style={{ marginBottom: 10 }}>Weight</Text>
+                                        <Text gray2 style={{ marginBottom: 5 }}>Weight</Text>
                                         <Slider
                                             minimumValue={0}
                                             maximumValue={150}
@@ -131,7 +132,7 @@ export default class Settings extends Component {
                                             onValueChange={value => this.setState({ weight: value })}
                                         />
                                         <Text caption gray2 right>{this.state.weight}kg</Text>
-                                        <Text gray2 style={{ marginBottom: 10 }}>Height</Text>
+                                        <Text gray2 style={{ marginBottom: 5 }}>Height</Text>
                                         <Slider
                                             minimumValue={0}
                                             maximumValue={220}
@@ -146,7 +147,7 @@ export default class Settings extends Component {
                                         />
                                         <Text caption gray2 right>{this.state.height}cm</Text>
 
-                                        <Text gray2 style={{ marginBottom: 10 }}>Birthday</Text>
+                                        <Text gray2 style={{ marginBottom: 5 }}>Birthday</Text>
                                         <DatePicker
                                             style={{ width: 200 }}
                                             date={this.state.date}
