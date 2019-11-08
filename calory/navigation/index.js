@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
@@ -42,8 +43,7 @@ const authScreens = createStackNavigator({
             headerTitle: <Text h1 bold>Forgot Password</Text>,
         }
     }
-},{
-
+}, {
     transitionConfig: () => fromLeft(500),
     defaultNavigationOptions: {
         headerStyle: {
@@ -55,8 +55,7 @@ const authScreens = createStackNavigator({
         }
     }
 })
-
-const screens = createStackNavigator({
+const mainScreen = createStackNavigator({
     Main: {
         screen: Main,
         navigationOptions: {
@@ -65,27 +64,54 @@ const screens = createStackNavigator({
             }
         }
     },
+})
+const barcodeScreen = createStackNavigator({
     Barcode: {
         screen: Barcode,
+        navigationOptions: {
+            headerStyle: {
+                height: 0
+            }
+        },
     },
+})
+const productScreen = createStackNavigator({
     ProductPage: {
         screen: ProductPage,
+        navigationOptions: {
+            headerStyle: {
+                height: 0
+            }
+        },
     },
+})
+const settingsScreen = createStackNavigator({
     Settings: {
         screen: Settings,
         navigationOptions: {
-            headerTitle: <Text h1 bold>Settings</Text>,
+            headerTitle:
+                <Text h1 bold>Settings</Text>,
+            headerStyle: {
+                marginLeft: 10,
+                backgroundColor: theme.colors.white,
+                shadowColor: "Transparent",
+                elevation: 0,
+                shadowRadius: 0,
+                borderBottomColor: "transparent",
+            }
         },
-    },
+    }
+})
+
+const screens = createBottomTabNavigator({
+    mainScreen,
+    barcodeScreen,
+    productScreen,
+    settingsScreen
 }, {
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: theme.colors.gray3,
-            shadowColor: "Transparent",
-            elevation: 0,
-            shadowRadius: 0,
-            borderBottomColor: "transparent",
-        }
+    tabBarOptions: {
+        padding: 0,
+        margin: 0
     }
 })
 
@@ -97,5 +123,5 @@ export default createAppContainer(createSwitchNavigator(
     },
     {
         initialRouteName: 'AuthLoading',
-    }, )
+    })
 );

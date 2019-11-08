@@ -70,7 +70,7 @@ export default class Main extends Component {
         return (
             <AppConsumer>
                 {appConsumer => (
-                    <View style={styles.container} >
+                    <View style={styles.container}>
                         <View style={styles.background} >
                             <LinearGradient colors={[appConsumer.theme.colors.primary, appConsumer.theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
                                 <View style={styles.slider}>
