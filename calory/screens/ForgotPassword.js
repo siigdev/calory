@@ -10,7 +10,7 @@ export default class ForgotPassword extends Component {
     };
     handleForgot() {
         const { email } = this.state;
-        firebase.auth().sendPasswordResetEmail(email).then(() => {
+        firebase.auth().sendPasswordResetEmail(email.replace(/\s/g, '')).then(() => {
             console.warn("SENT")
         }).catch((e) => console.warn(e))
     };

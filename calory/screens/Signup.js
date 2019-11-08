@@ -22,7 +22,7 @@ export default class Signup extends Component {
         Keyboard.dismiss();
         this.setState({ isLoading: true });
         try {
-            firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+            firebase.auth().createUserWithEmailAndPassword(email.replace(/\s/g, ''), password).then(() => {
                 this._signInAsync()
             }).catch(error => {
                 this.setState({ isLoading: false });
