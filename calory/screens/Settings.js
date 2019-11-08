@@ -30,9 +30,11 @@ export default class Settings extends Component {
             this.setState({
                 gender: snapshot.val().gender,
                 name: snapshot.val().name,
-                weight: snapshot.val().weight,
-                height: snapshot.val().height,
+                weight: snapshot.val().weight+0,
+                height: snapshot.val().height+0,
                 email: email,
+                newsletter: snapshot.val().newsletter,
+                notifications: snapshot.val().notifications,
                 isLoading: false
             })
         });
@@ -65,8 +67,10 @@ export default class Settings extends Component {
         firebase.database().ref('users/').child(currUser).set({
             name: this.state.name,
             gender: this.state.gender,
-            height: this.state.height,
-            weight: this.state.weight,
+            height: this.state.height + 0,
+            weight: this.state.weight + 0,
+            notifications: this.state.notifications,
+            newsletter: this.state.newsletter,
         }).then((data) => {
             //success callback
             console.log('data ', data)
@@ -115,7 +119,7 @@ export default class Settings extends Component {
                                         </Block>
                                         <Text gray2 style={{ marginBottom: 10 }}>Weight</Text>
                                         <Slider
-                                            minimumValue={50}
+                                            minimumValue={0}
                                             maximumValue={150}
                                             step={1}
                                             style={{ height: 19 }}
@@ -129,7 +133,7 @@ export default class Settings extends Component {
                                         <Text caption gray2 right>{this.state.weight}kg</Text>
                                         <Text gray2 style={{ marginBottom: 10 }}>Height</Text>
                                         <Slider
-                                            minimumValue={100}
+                                            minimumValue={0}
                                             maximumValue={220}
                                             step={1}
                                             style={{ height: 19 }}
