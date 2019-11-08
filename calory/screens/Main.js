@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Block, Text, Card, Button, Badge } from '../components';
+import { Block, Text, Card, Button } from '../components';
 import { ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { CircularProgress } from 'react-native-circular-progress';
@@ -24,16 +24,14 @@ export default class Main extends Component {
             <LinearGradient
                 end={{ x: 1, y: 0 }}
                 colors={["#FF988A", appConsumer.theme.colors.accent]}
-            >
-                <Block middle flex={0.4}>
-                    <Badge color={appConsumer.theme.colors.white, '0.2'} size={74}>
-                        <Badge color={appConsumer.theme.colors.white, '0.2'} size={52}>
-                        </Badge>
-                    </Badge>
-                </Block>
+                style={{
+                    borderRadius: 5,
+                    padding: theme.sizes.base +4,
+                    marginBottom: theme.sizes.base
+                }}>
                 <Block middle>
                     <Text size={theme.sizes.base} spacing={0.4} medium white>Wohoo!</Text>
-                    <Text size={theme.sizes.base} spacing={0.4} medium white>Safe Driver Trophy!</Text>
+                    <Text size={theme.sizes.base} spacing={0.4} medium white>Test</Text>
                 </Block>
             </LinearGradient>
             )}
@@ -84,8 +82,9 @@ export default class Main extends Component {
                 {appConsumer => (
             <ScrollView >
                 {this.renderTopHeader()}
+                
+                <Block padding={[0, theme.sizes.base]}>
                 {this.renderReward()}
-                <Block padding={[0, theme.sizes.bas]}>
                     <Card shadow >
                         <Block center>
                             <Block row>
