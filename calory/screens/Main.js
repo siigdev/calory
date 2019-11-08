@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         height: window.width * 2,
         overflow: 'hidden',
         height: window.width / 1.5,
-        marginBottom: 20
+        marginBottom: 20,
     },
     background: {
         borderRadius: window.width,
@@ -160,7 +160,13 @@ const styles = StyleSheet.create({
         marginLeft: -(window.width / 2),
         position: 'absolute',
         bottom: 0,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        marginBottom: 10,
+        shadowColor: theme.colors.black,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 13,
+        elevation: 5,
     },
     slider: {
         height: window.width / 1.5,
@@ -169,6 +175,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         marginLeft: window.width / 2,
+
     },
     linearGradient: {
         flex: 1,
