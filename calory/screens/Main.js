@@ -74,7 +74,11 @@ export default class Main extends Component {
                         <View style={styles.background} >
                             <LinearGradient colors={[appConsumer.theme.colors.primary, appConsumer.theme.colors.secondary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.linearGradient}>
                                 <View style={styles.slider}>
-                                    <Block row>
+                                    <Block row style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
                                         <Block center>
                                             <Text white h3 small>{this.state.calories}</Text>
                                             <Text white h4 caption transform="uppercase">Eaten</Text>
@@ -185,7 +189,7 @@ const styles = StyleSheet.create({
     }, container: {
         alignSelf: 'center',
         width: window.width,
-        height: window.width * 2,
+        height: window.width * 1.5,
         overflow: 'hidden',
         height: window.width / 1.5,
         marginBottom: 20,
@@ -208,7 +212,6 @@ const styles = StyleSheet.create({
     slider: {
         height: window.width / 1.5,
         width: window.width,
-        paddingTop: 20,
         position: 'absolute',
         bottom: 0,
         marginLeft: window.width / 2,

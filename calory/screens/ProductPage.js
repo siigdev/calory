@@ -41,7 +41,7 @@ export default class ProductPage extends Component {
     const currUser = firebase.auth().currentUser.uid;
 
     firebase.database().ref('calories/').child(currUser).push({
-      amount: this.state.calories,
+      amount: this.state.calories*this.state.grams / 100,
       date: firebase.database.ServerValue.TIMESTAMP
     })
   }
