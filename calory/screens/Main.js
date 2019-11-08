@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Block, Text, Card, Button } from '../components';
-import { ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
+import { ScrollView, StyleSheet, View, ActivityIndicator, Dimensions, } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { AppConsumer } from '../AppContextProvider'
@@ -11,15 +11,17 @@ import { theme } from '../constants';
 const window = Dimensions.get('window');
 export default class Main extends Component {
     state = {
-        calories: 50
+        calories: 50,
+        isLoading: false
     }
 
     componentDidMount() {
         const { navigation } = this.props;
+        this.setState({ isLoading: true });
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 const currUser = firebase.auth().currentUser.uid;
-                firebase.database().ref('calories/' + currUser).once('value', (snapshot) => {
+                firebase.database().ref('calories/' + currUser).on('value', (snapshot) => {
                     var list = [];
                     snapshot.forEach(function (elem) {
                         list.push(elem.val());
@@ -31,6 +33,7 @@ export default class Main extends Component {
                     this.setState({
                         calories: totalvalue
                     })
+                    this.setState({ isLoading: false });
                 });
             } else {
                 navigation.navigate('Welcome')
@@ -112,52 +115,64 @@ export default class Main extends Component {
     }
 
     render() {
-
+        const { isLoading } = this.state;
         const { navigation } = this.props;
         return (
             <AppConsumer>
                 {appConsumer => (
-                    <ScrollView style={{ backgroundColor: '#F9F9FB' }}>
-                        {this.renderTopHeader()}
-                        <Block padding={[0, theme.sizes.base]}>
-                            {this.renderReward()}
-                            <Block style={{ marginBottom: theme.sizes.base }}>
-                                <Text spacing={0.4} transform="uppercase">
-                                    Recent activity
-                                </Text>
-                            </Block>
-                            <Card >
-                                <Block center>
-                                    <Block row>
-                                        <Block center flex={0.8}>
-                                            <Text size={20} spacing={1} primary>79</Text>
-                                            <Text spacing={0.7}>Trips</Text>
-                                        </Block>
+                    <View style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                    }}>
+                        {isLoading ?
+                            <ActivityIndicator size={100} color={appConsumer.theme.colors.primary} /> :
+                            <ScrollView style={{ backgroundColor: '#F9F9FB' }}>
 
-                                        <Block center flex={2}>
-                                            <Text size={20} spacing={1} primary>123</Text>
-                                            <Text spacing={0.7}>Hours</Text>
-                                        </Block>
-
-                                        <Block center flex={0.8}>
-                                            <Text size={20} spacing={1} primary>2.786</Text>
-                                            <Text spacing={0.7}>Miles</Text>
-                                        </Block>
-                                    </Block>
+                                <Block>
+                                    {this.renderTopHeader()}
                                 </Block>
-                            </Card>
-                            <Card >
-                                <Button onPress={() => navigation.navigate('Barcode')}>
-                                    <Text gray caption center>
-                                        Scan something!
-                            </Text>
-                                </Button>
-                            </Card>
-                            <Button title="Settings" onPress={() => navigation.navigate('Settings')}>
-                                <Text bold black center>Settings</Text>
-                            </Button>
-                        </Block>
-                    </ScrollView>
+                                <Block padding={[0, theme.sizes.base]}>
+                                    {this.renderReward()}
+                                    <Block style={{ marginBottom: theme.sizes.base }}>
+                                        <Text spacing={0.4} transform="uppercase">
+                                            Recent activity
+                                </Text>
+                                    </Block>
+                                    <Card >
+                                        <Block center>
+                                            <Block row>
+                                                <Block center flex={0.8}>
+                                                    <Text size={20} spacing={1} primary>79</Text>
+                                                    <Text spacing={0.7}>Trips</Text>
+                                                </Block>
+
+                                                <Block center flex={2}>
+                                                    <Text size={20} spacing={1} primary>123</Text>
+                                                    <Text spacing={0.7}>Hours</Text>
+                                                </Block>
+
+                                                <Block center flex={0.8}>
+                                                    <Text size={20} spacing={1} primary>2.786</Text>
+                                                    <Text spacing={0.7}>Miles</Text>
+                                                </Block>
+                                            </Block>
+                                        </Block>
+                                    </Card>
+                                    <Card >
+                                        <Button onPress={() => navigation.navigate('Barcode')}>
+                                            <Text gray caption center>
+                                                Scan something!
+                                            </Text>
+                                        </Button>
+                                    </Card>
+                                    <Button title="Settings" onPress={() => navigation.navigate('Settings')}>
+                                        <Text bold black center>Settings</Text>
+                                    </Button>
+                                </Block>
+
+                            </ScrollView>
+                        }
+                    </View>
                 )}
             </AppConsumer>
         )
