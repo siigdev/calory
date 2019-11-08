@@ -5,19 +5,39 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { CircularProgress } from 'react-native-circular-progress';
 import { AppConsumer } from '../AppContextProvider'
 import firebase from 'firebase';
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons';
 
 import { theme } from '../constants';
 const window = Dimensions.get('window');
 export default class Main extends Component {
-
-    componentWillMount() {
-        const { navigation } = this.props;
-        if (!firebase.auth().currentUser) {
-            navigation.navigate('Welcome')
-        }
+    state = {
+        calories: 50
     }
 
+    componentDidMount() {
+        const { navigation } = this.props;
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                const currUser = firebase.auth().currentUser.uid;
+                firebase.database().ref('calories/' + currUser).once('value', (snapshot) => {
+                    var list = [];
+                    snapshot.forEach(function (elem) {
+                        list.push(elem.val());
+                    });
+                    let totalvalue = 0;
+                    for (i = 0; i < list.length; i++) {
+                        totalvalue = totalvalue + list[i].amount;
+                    }
+                    this.setState({
+                        calories: totalvalue
+                    })
+                });
+            } else {
+                navigation.navigate('Welcome')
+            }
+        }.bind(this));
+
+    }
     renderReward() {
         return (
             <AppConsumer>
@@ -53,7 +73,7 @@ export default class Main extends Component {
                                 <View style={styles.slider}>
                                     <Block row>
                                         <Block center>
-                                            <Text white h3 small>322</Text>
+                                            <Text white h3 small>{this.state.calories}</Text>
                                             <Text white h4 caption transform="uppercase">Eaten</Text>
                                         </Block>
                                         <Block center>
@@ -69,7 +89,7 @@ export default class Main extends Component {
                                                 backgroundWidth={theme.sizes.base / 8}
                                             >{() => (
                                                 <Block center middle>
-                                                    <Text white h3 small>322</Text>
+                                                    <Text white h3 small>{this.state.calories}</Text>
                                                     <Text white h4 caption transform="uppercase">CALORIES LEFT</Text>
                                                 </Block>
                                             )}
@@ -91,6 +111,7 @@ export default class Main extends Component {
     }
 
     render() {
+
         const { navigation } = this.props;
         return (
             <AppConsumer>
