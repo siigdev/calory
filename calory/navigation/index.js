@@ -13,8 +13,9 @@ import ForgotPassword from '../screens/ForgotPassword';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import { theme } from '../constants';
 import { Text } from '../components';
+import { Ionicons } from '@expo/vector-icons';
 
-import { fromLeft, zoomIn } from 'react-navigation-transitions';
+import { fromLeft } from 'react-navigation-transitions';
 
 const authLoadingScreen = createStackNavigator({
     AuthLoadingScreen: {
@@ -104,11 +105,26 @@ const settingsScreen = createStackNavigator({
 })
 
 const screens = createBottomTabNavigator({
-    mainScreen,
-    barcodeScreen,
+    mainScreen: {
+        screen: mainScreen,
+        navigationOptions: {
+            tabBarIcon: <Ionicons name={'md-home'} size={25}/>,
+        },
+    },
+    barcodeScreen: {
+        screen: settingsScreen,
+        navigationOptions: {
+            tabBarIcon: <Ionicons name={'md-add-circle'} size={45}/>,
+            },
+        },
     productScreen,
-    settingsScreen
-}, {
+    settingsScreen: {
+        screen: settingsScreen,
+        navigationOptions: {
+            tabBarIcon: <Ionicons name={'md-settings'} size={25}/>,
+            },
+        },
+    }, {
     tabBarOptions: {
         padding: 0,
         margin: 0
