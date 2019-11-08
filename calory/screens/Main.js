@@ -130,7 +130,7 @@ export default class Main extends Component {
                     }}>
                         {isLoading ?
                             <ActivityIndicator size={100} color={appConsumer.theme.colors.primary} /> :
-                            <ScrollView style={{ backgroundColor: '#F9F9FB' }}>
+                            <ScrollView style={{ backgroundColor: appConsumer.theme.colors.gray4 }}>
 
                                 <Block>
                                     {this.renderTopHeader()}

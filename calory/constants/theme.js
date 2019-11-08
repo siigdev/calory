@@ -13,6 +13,7 @@ const blueTheme = {
     gray: "#d4d4d4",
     gray2: "#abacae",
     gray3: "#F7F8FA",
+    gray4: "#F9F9FB"
   }
 }
 
@@ -29,6 +30,7 @@ const greenTheme = {
     gray: "#d4d4d4",
     gray2: "#abacae",
     gray3: "#F7F8FA",
+    gray4: "#F9F9FB"
   }
 }
 const redTheme = {
@@ -44,6 +46,7 @@ const redTheme = {
     gray: "#d4d4d4",
     gray2: "#abacae",
     gray3: "#F7F8FA",
+    gray4: "#F9F9FB"
   }
 }
 const yellowTheme = {
@@ -59,6 +62,7 @@ const yellowTheme = {
     gray: "#d4d4d4",
     gray2: "#abacae",
     gray3: "#F7F8FA",
+    gray4: "#F9F9FB"
   }
 }
 
@@ -73,6 +77,7 @@ const colors = {
   gray: "#d4d4d4",
   gray2: "#abacae",
   gray3: "#F7F8FA",
+  gray4: "#F9F9FB"
 };
 
 const sizes = {
