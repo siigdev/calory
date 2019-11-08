@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Block, Text, Card, Button } from '../components';
 import { ScrollView, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
-import { CircularProgress } from 'react-native-circular-progress';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { AppConsumer } from '../AppContextProvider'
 import firebase from 'firebase';
 import { Ionicons } from '@expo/vector-icons';
@@ -77,10 +77,11 @@ export default class Main extends Component {
                                             <Text white h4 caption transform="uppercase">Eaten</Text>
                                         </Block>
                                         <Block center>
-                                            <CircularProgress
+                                            <AnimatedCircularProgress
                                                 size={150}
                                                 fill={60}
                                                 lineCap="round"
+                                                duration={1500}
                                                 rotation={0}
                                                 arcSweepAngle={360}
                                                 width={theme.sizes.base / 4}
@@ -93,7 +94,7 @@ export default class Main extends Component {
                                                     <Text white h4 caption transform="uppercase">CALORIES LEFT</Text>
                                                 </Block>
                                             )}
-                                            </CircularProgress>
+                                            </AnimatedCircularProgress>
                                         </Block>
                                         <Block center>
                                             <Text white h3 small>322</Text>
