@@ -72,8 +72,15 @@ const statisticsScreen = createStackNavigator({
     Statistics: {
         screen: Statistics,
         navigationOptions: {
+            headerTitle:
+                <Text h1 bold>Statistics</Text>,
             headerStyle: {
-                height: 0
+                marginLeft: theme.sizes.base * 2,
+                backgroundColor: theme.colors.white,
+                shadowColor: "Transparent",
+                elevation: 0,
+                shadowRadius: 0,
+                borderBottomColor: "transparent",
             }
         },
     },
@@ -92,8 +99,15 @@ const friendsScreen = createStackNavigator({
     Friends: {
         screen: Friends,
         navigationOptions: {
+            headerTitle:
+                <Text h1 bold>Friends</Text>,
             headerStyle: {
-                height: 0
+                marginLeft: theme.sizes.base * 2,
+                backgroundColor: theme.colors.white,
+                shadowColor: "Transparent",
+                elevation: 0,
+                shadowRadius: 0,
+                borderBottomColor: "transparent",
             }
         },
     },
