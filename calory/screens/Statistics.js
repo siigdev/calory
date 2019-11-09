@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Block } from '../components';
-import { StyleSheet, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, ScrollView, TouchableOpacity, Image } from 'react-native';
 
 import { theme } from '../constants';
 
@@ -40,6 +40,10 @@ export default class Statistics extends Component {
                 style={[styles.item, { backgroundColor: '#6e3b6e' }]}
               >
                 <Text>{item.title}</Text>
+                <Image
+                  style={{ width: 100, height: 100 }}
+                  source={require('../assets/images/Achievements/burger.png')}
+                />
               </TouchableOpacity>
             )}
           />
