@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { AsyncStorage, ActivityIndicator, ScrollView, StyleSheet, TextInput, TouchableOpacity, Image, View } from 'react-native'
-import { Block, Text, Input, Button, Switch, Divider, ColorPalette } from '../components'
+import { Block, Text, Button, Switch, Divider, ColorPalette } from '../components'
 import Slider from 'react-native-slider'
 import DatePicker from 'react-native-datepicker'
 import { AppConsumer } from '../AppContextProvider'

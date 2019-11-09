@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Block } from '../components';
+import { Text, Block, Divider } from '../components';
 import { StyleSheet, FlatList, ScrollView, TouchableOpacity, Image } from 'react-native';
 
 import { theme } from '../constants';
@@ -37,7 +37,7 @@ export default class Statistics extends Component {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => onSelect(id)}
-                style={[styles.item, { backgroundColor: '#6e3b6e' }]}
+                style={[styles.item, { backgroundColor: theme.colors.white }]}
               >
                 <Text>{item.title}</Text>
                 <Image
@@ -47,7 +47,34 @@ export default class Statistics extends Component {
               </TouchableOpacity>
             )}
           />
-          <Text>Testing123</Text>
+          <Block row space="between" style={styles.inputRow}>
+            <Block>
+              <Text h4 >Total calories eaten</Text>
+            </Block>
+            <Text h4 medium primary >92315</Text>
+          </Block>
+          <Divider/>
+          <Block row space="between" style={styles.inputRow}>
+            <Block>
+              <Text h4 >Total calories burned</Text>
+            </Block>
+            <Text h4 medium primary >92313</Text>
+          </Block>
+          <Divider/>
+          <Block row space="between" style={styles.inputRow}>
+            <Block>
+              <Text h4 >Number of days at target</Text>
+            </Block>
+            <Text h4 medium primary >217</Text>
+          </Block>
+          <Divider/>
+          <Block row space="between" style={styles.inputRow}>
+            <Block>
+              <Text h4 >Achivements</Text>
+            </Block>
+            <Text h4 medium primary >74</Text>
+          </Block>
+          <Divider/>
         </Block>
       </ScrollView>
     )
@@ -56,8 +83,6 @@ export default class Statistics extends Component {
 
 const styles = StyleSheet.create({
   item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: theme.sizes.base*2,
   }
 })  
