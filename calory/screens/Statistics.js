@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Text, Block, Divider, Card } from '../components';
 import { StyleSheet, FlatList, ScrollView, TouchableOpacity, Image } from 'react-native';
-
+import firebase from 'firebase';
 import { theme } from '../constants';
+
 
 const DATA = [
   {
@@ -19,13 +20,37 @@ const DATA = [
   },
 ];
 
+
+
 export default class Statistics extends Component {
+  state = {
+    calories: 50,
+    isLoading: false
+  }
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    const currUser = firebase.auth().currentUser.uid;
+    firebase.database().ref('calories/' + currUser).on('value', (snapshot) => {
+      var list = [];
+      snapshot.forEach(function (elem) {
+        list.push(elem.val());
+      });
+      let totalvalue = 0;
+      for (i = 0; i < list.length; i++) {
+        totalvalue = totalvalue + list[i].amount;
+      }
+      this.setState({
+        calories: totalvalue
+      })
+      this.setState({ isLoading: false });
+    });
+  }
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: theme.colors.gray4 }}>
         <Block padding={[0, theme.sizes.base]}>
           <Block style={{ marginBottom: theme.sizes.base / 2 }}>
-            <Text spacing={0.4} transform="uppercase" style={{marginTop: theme.sizes.base}}>Achievements</Text>
+            <Text spacing={0.4} transform="uppercase" style={{ marginTop: theme.sizes.base }}>Achievements</Text>
           </Block>
           <FlatList
             horizontal
@@ -42,7 +67,7 @@ export default class Statistics extends Component {
                 onPress={() => onSelect(id)}
                 style={[styles.item, { backgroundColor: theme.colors.white }]}
               >
-                <Card style={{paddingBottom: 0}}>
+                <Card style={{ paddingBottom: 0 }}>
                   <Text>{item.title}</Text>
                   <Image
                     style={{ width: 100, height: 100 }}
@@ -60,7 +85,7 @@ export default class Statistics extends Component {
               <Block>
                 <Text h4 >Total calories eaten</Text>
               </Block>
-              <Text h4 medium primary >92315</Text>
+              <Text h4 medium primary >{this.state.calories}</Text>
             </Block>
             <Divider />
             <Block row space="between" style={styles.inputRow}>
