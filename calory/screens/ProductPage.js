@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, Block, Input, Progress, Divider, Button } from '../components'
 import ApiKeys from '../constants/ApiKeys'
-import { StyleSheet, ScrollView, Picker } from 'react-native'
+import { StyleSheet, ScrollView, Picker, Image } from 'react-native'
 import firebase from 'firebase';
 
 import { theme } from '../constants';
@@ -129,6 +129,11 @@ export default class ProductPage extends Component {
             <Button gradient onPress={() => this.addToHistory()}>
               <Text bold white center>Add to history</Text>
             </Button>
+
+            <Image
+          style={{width: 65, height: 25, alignSelf: 'flex-end'}}
+          source={require('../assets/images/edamambadge.png')}
+        />
           </Block>
         </Block>
       </ScrollView >

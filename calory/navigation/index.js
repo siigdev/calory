@@ -7,6 +7,8 @@ import Welcome from '../screens/Welcome';
 import Signup from '../screens/Signup';
 import Main from '../screens/Main';
 import Barcode from '../screens/Barcode';
+import Statistics from '../screens/Statistics';
+import Friends from '../screens/Friends';
 import ProductPage from '../screens/ProductPage';
 import Settings from '../screens/Settings';
 import ForgotPassword from '../screens/ForgotPassword';
@@ -66,9 +68,29 @@ const mainScreen = createStackNavigator({
         }
     },
 })
+const statisticsScreen = createStackNavigator({
+    Statistics: {
+        screen: Statistics,
+        navigationOptions: {
+            headerStyle: {
+                height: 0
+            }
+        },
+    },
+})
 const barcodeScreen = createStackNavigator({
     Barcode: {
         screen: Barcode,
+        navigationOptions: {
+            headerStyle: {
+                height: 0
+            }
+        },
+    },
+})
+const friendsScreen = createStackNavigator({
+    Friends: {
+        screen: Friends,
         navigationOptions: {
             headerStyle: {
                 height: 0
@@ -93,7 +115,7 @@ const settingsScreen = createStackNavigator({
             headerTitle:
                 <Text h1 bold>Settings</Text>,
             headerStyle: {
-                marginLeft: 10,
+                marginLeft: theme.sizes.base * 2,
                 backgroundColor: theme.colors.white,
                 shadowColor: "Transparent",
                 elevation: 0,
@@ -108,23 +130,35 @@ const screens = createBottomTabNavigator({
     mainScreen: {
         screen: mainScreen,
         navigationOptions: {
-            tabBarIcon: <Ionicons name={'md-home'} size={25}/>,
+            tabBarIcon: <Ionicons name={'md-home'} size={25} />,
+        },
+    },
+    statisticsScreen: {
+        screen: statisticsScreen,
+        navigationOptions: {
+            tabBarIcon: <Ionicons name={'md-trophy'} size={25} />,
         },
     },
     barcodeScreen: {
         screen: barcodeScreen,
         navigationOptions: {
-            tabBarIcon: <Ionicons name={'md-add-circle'} size={45}/>,
-            },
+            tabBarIcon: <Ionicons name={'md-add-circle'} size={45} />,
         },
+    },
+    friendsScreen: {
+        screen: friendsScreen,
+        navigationOptions: {
+            tabBarIcon: <Ionicons name={'md-people'} size={25} />,
+        },
+    },
     productScreen,
     settingsScreen: {
         screen: settingsScreen,
         navigationOptions: {
-            tabBarIcon: <Ionicons name={'md-settings'} size={25}/>,
-            },
+            tabBarIcon: <Ionicons name={'md-settings'} size={25} />,
         },
-    }, {
+    },
+}, {
     tabBarOptions: {
         activeTintColor: theme.colors.primary,
         activeBackgroundColor: theme.colors.gray4,
