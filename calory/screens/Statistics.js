@@ -23,9 +23,9 @@ export default class Statistics extends Component {
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: theme.colors.gray4 }}>
-        <Block padding={[0, theme.sizes.base * 2]}>
-          <Block style={{ marginBottom: theme.sizes.base }}>
-            <Text spacing={0.4} transform="uppercase">Achievements</Text>
+        <Block padding={[0, theme.sizes.base]}>
+          <Block style={{ marginBottom: theme.sizes.base / 2 }}>
+            <Text spacing={0.4} transform="uppercase" style={{marginTop: theme.sizes.base}}>Achievements</Text>
           </Block>
           <FlatList
             horizontal
@@ -42,7 +42,7 @@ export default class Statistics extends Component {
                 onPress={() => onSelect(id)}
                 style={[styles.item, { backgroundColor: theme.colors.white }]}
               >
-                <Card>
+                <Card style={{paddingBottom: 0}}>
                   <Text>{item.title}</Text>
                   <Image
                     style={{ width: 100, height: 100 }}
@@ -52,7 +52,7 @@ export default class Statistics extends Component {
               </TouchableOpacity>
             )}
           />
-          <Block style={{ marginBottom: theme.sizes.base }}>
+          <Block style={{ marginBottom: theme.sizes.base / 2 }}>
             <Text spacing={0.4} transform="uppercase">Numerical Data</Text>
           </Block>
           <Card>
@@ -82,6 +82,32 @@ export default class Statistics extends Component {
                 <Text h4 >Achivements</Text>
               </Block>
               <Text h4 medium primary >74</Text>
+            </Block>
+            <Divider />
+          </Card>
+          <Block style={{ marginBottom: theme.sizes.base / 2 }}>
+            <Text spacing={0.4} transform="uppercase">Exercises</Text>
+          </Block>
+          <Card>
+            <Block row space="between" style={styles.inputRow}>
+              <Block>
+                <Text h4 >Maximum time exercized</Text>
+              </Block>
+              <Text h4 medium primary >4.5 Hours</Text>
+            </Block>
+            <Divider />
+            <Block row space="between" style={styles.inputRow}>
+              <Block>
+                <Text h4 >Total distance</Text>
+              </Block>
+              <Text h4 medium primary >720 KM</Text>
+            </Block>
+            <Divider />
+            <Block row space="between" style={styles.inputRow}>
+              <Block>
+                <Text h4 >Steps taken</Text>
+              </Block>
+              <Text h4 medium primary >21754</Text>
             </Block>
             <Divider />
           </Card>
