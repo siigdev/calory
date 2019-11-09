@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Block, Divider } from '../components';
+import { Text, Block, Divider, Card } from '../components';
 import { StyleSheet, FlatList, ScrollView, TouchableOpacity, Image } from 'react-native';
 
 import { theme } from '../constants';
@@ -22,8 +22,11 @@ const DATA = [
 export default class Statistics extends Component {
   render() {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: theme.colors.gray4 }}>
         <Block padding={[0, theme.sizes.base * 2]}>
+          <Block style={{ marginBottom: theme.sizes.base }}>
+            <Text spacing={0.4} transform="uppercase">Achievements</Text>
+          </Block>
           <FlatList
             horizontal
             pagingEnabled
@@ -39,42 +42,49 @@ export default class Statistics extends Component {
                 onPress={() => onSelect(id)}
                 style={[styles.item, { backgroundColor: theme.colors.white }]}
               >
-                <Text>{item.title}</Text>
-                <Image
-                  style={{ width: 100, height: 100 }}
-                  source={require('../assets/images/Achievements/burger.png')}
-                />
+                <Card>
+                  <Text>{item.title}</Text>
+                  <Image
+                    style={{ width: 100, height: 100 }}
+                    source={require('../assets/images/Achievements/burger.png')}
+                  />
+                </Card>
               </TouchableOpacity>
             )}
           />
-          <Block row space="between" style={styles.inputRow}>
-            <Block>
-              <Text h4 >Total calories eaten</Text>
-            </Block>
-            <Text h4 medium primary >92315</Text>
+          <Block style={{ marginBottom: theme.sizes.base }}>
+            <Text spacing={0.4} transform="uppercase">Numerical Data</Text>
           </Block>
-          <Divider/>
-          <Block row space="between" style={styles.inputRow}>
-            <Block>
-              <Text h4 >Total calories burned</Text>
+          <Card>
+            <Block row space="between" style={styles.inputRow}>
+              <Block>
+                <Text h4 >Total calories eaten</Text>
+              </Block>
+              <Text h4 medium primary >92315</Text>
             </Block>
-            <Text h4 medium primary >92313</Text>
-          </Block>
-          <Divider/>
-          <Block row space="between" style={styles.inputRow}>
-            <Block>
-              <Text h4 >Number of days at target</Text>
+            <Divider />
+            <Block row space="between" style={styles.inputRow}>
+              <Block>
+                <Text h4 >Total calories burned</Text>
+              </Block>
+              <Text h4 medium primary >92313</Text>
             </Block>
-            <Text h4 medium primary >217</Text>
-          </Block>
-          <Divider/>
-          <Block row space="between" style={styles.inputRow}>
-            <Block>
-              <Text h4 >Achivements</Text>
+            <Divider />
+            <Block row space="between" style={styles.inputRow}>
+              <Block>
+                <Text h4 >Number of days at target</Text>
+              </Block>
+              <Text h4 medium primary >217</Text>
             </Block>
-            <Text h4 medium primary >74</Text>
-          </Block>
-          <Divider/>
+            <Divider />
+            <Block row space="between" style={styles.inputRow}>
+              <Block>
+                <Text h4 >Achivements</Text>
+              </Block>
+              <Text h4 medium primary >74</Text>
+            </Block>
+            <Divider />
+          </Card>
         </Block>
       </ScrollView>
     )
@@ -83,6 +93,7 @@ export default class Statistics extends Component {
 
 const styles = StyleSheet.create({
   item: {
-    marginHorizontal: theme.sizes.base*2,
+    marginHorizontal: theme.sizes.base,
+    marginBottom: theme.sizes.base,
   }
 })  
