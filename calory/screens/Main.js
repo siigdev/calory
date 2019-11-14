@@ -121,6 +121,7 @@ export default class Main extends Component {
     }
     // Remember to change the index to some other unique ID prop
     renderCard() {
+        console.warn(this.state.itemsEaten)
         return this.state.itemsEaten.map((data, index) => {
             return (
                 <Card style={{ padding: 0 }} key={index}> 
@@ -131,7 +132,7 @@ export default class Main extends Component {
 
                         <Block flex={1} style={{ padding: theme.sizes.base }}>
                             <Text size={18} spacing={1} primary>Munchies!</Text>
-                            <Text spacing={0.7}>You have eaten 2134 calories</Text>
+                            <Text spacing={0.7}>You have eaten {data.amount} calories</Text>
                         </Block>
                     </Block>
                 </Card>
