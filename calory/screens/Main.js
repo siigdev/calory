@@ -121,13 +121,21 @@ export default class Main extends Component {
     }
     // Remember to change the index to some other unique ID prop
     renderCard() {
-        console.warn(this.state.itemsEaten)
+        let randomImages = [require('../assets/images/Achievements/burger.png'),
+        require('../assets/images/Achievements/chicken.png'),
+        require('../assets/images/Achievements/milkshake.png'),
+        require('../assets/images/Achievements/pizza.png'),
+        require('../assets/images/Achievements/potato.png'),
+        require('../assets/images/Achievements/taco.png'),
+        require('../assets/images/Achievements/hotdog.png'),
+        ]
         return this.state.itemsEaten.map((data, index) => {
+            var randomImage = randomImages[Math.floor(Math.random() * randomImages.length)]
             return (
-                <Card style={{ padding: 0 }} key={index}> 
+                <Card style={{ padding: theme.sizes.base/2 }} key={index}>
                     <Block row>
                         <Block flex={0.3}>
-                            <Image source={require('../assets/images/Achievements/chicken.png')} style={styles.cardImage}></Image>
+                            <Image source={randomImage} style={styles.cardImage}></Image>
                         </Block>
 
                         <Block flex={1} style={{ padding: theme.sizes.base }}>
@@ -141,7 +149,6 @@ export default class Main extends Component {
     }
     render() {
         const { isLoading } = this.state;
-        const { navigation } = this.props;
         return (
             <AppConsumer>
                 {appConsumer => (
@@ -164,36 +171,6 @@ export default class Main extends Component {
                                 </Text>
                                     </Block>
                                     {this.renderCard()}
-                                    <Card >
-                                        <Block center>
-                                            <Block row>
-                                                <Block center flex={0.8}>
-                                                    <Text size={20} spacing={1} primary>79</Text>
-                                                    <Text spacing={0.7}>Trips</Text>
-                                                </Block>
-
-                                                <Block center flex={2}>
-                                                    <Text size={20} spacing={1} primary>123</Text>
-                                                    <Text spacing={0.7}>Hours</Text>
-                                                </Block>
-
-                                                <Block center flex={0.8}>
-                                                    <Text size={20} spacing={1} primary>2.786</Text>
-                                                    <Text spacing={0.7}>Miles</Text>
-                                                </Block>
-                                            </Block>
-                                        </Block>
-                                    </Card>
-                                    <Card >
-                                        <Button onPress={() => navigation.navigate('Barcode')}>
-                                            <Text gray caption center>
-                                                Scan something!
-                                            </Text>
-                                        </Button>
-                                    </Card>
-                                    <Button title="Settings" onPress={() => navigation.navigate('Settings')}>
-                                        <Text bold black center>Settings</Text>
-                                    </Button>
                                 </Block>
 
                             </ScrollView>
@@ -232,8 +209,8 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     cardImage: {
-        height: 85,
-        width: 85,
+        height: 75,
+        width: 75,
     },
     slider: {
         height: window.width / 1.5,
