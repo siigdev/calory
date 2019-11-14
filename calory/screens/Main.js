@@ -119,10 +119,11 @@ export default class Main extends Component {
         )
 
     }
+    // Remember to change the index to some other unique ID prop
     renderCard() {
-        return this.state.itemsEaten.map((data) => {
+        return this.state.itemsEaten.map((data, index) => {
             return (
-                <Card style={{ padding: 0 }} key={data.id}>
+                <Card style={{ padding: 0 }} key={index}> 
                     <Block row>
                         <Block flex={0.3}>
                             <Image source={require('../assets/images/Achievements/chicken.png')} style={styles.cardImage}></Image>
