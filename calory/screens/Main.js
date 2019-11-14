@@ -129,7 +129,7 @@ export default class Main extends Component {
         require('../assets/images/Achievements/taco.png'),
         require('../assets/images/Achievements/hotdog.png'),
         ]
-        return this.state.itemsEaten.map((data, index) => {
+        return this.state.itemsEaten.slice(0).reverse().map((data, index) => {
             var randomImage = randomImages[Math.floor(Math.random() * randomImages.length)]
             return (
                 <Card style={{ padding: theme.sizes.base/2 }} key={index}>
@@ -141,6 +141,7 @@ export default class Main extends Component {
                         <Block flex={1} style={{ padding: theme.sizes.base }}>
                             <Text size={18} spacing={1} primary>Munchies!</Text>
                             <Text spacing={0.7}>You have eaten {data.amount} calories</Text>
+                            <Text h4 caption gray spacing={0.7}>{new Date(data.date).toLocaleTimeString()}</Text>
                         </Block>
                     </Block>
                 </Card>
