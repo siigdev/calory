@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Block, Text, Card, Button } from '../components';
-import { ScrollView, StyleSheet, View, ActivityIndicator, Dimensions, } from 'react-native'
+import { ScrollView, StyleSheet, View, ActivityIndicator, Dimensions, Image } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { AppConsumer } from '../AppContextProvider'
@@ -12,7 +12,8 @@ const window = Dimensions.get('window');
 export default class Main extends Component {
     state = {
         calories: 50,
-        isLoading: false
+        isLoading: false,
+        itemsEaten: []
     }
 
     componentDidMount() {
@@ -22,13 +23,14 @@ export default class Main extends Component {
             if (user) {
                 const currUser = firebase.auth().currentUser.uid;
                 firebase.database().ref('calories/' + currUser).on('value', (snapshot) => {
-                    var list = [];
+                    var itemsEaten = [];
                     snapshot.forEach(function (elem) {
-                        list.push(elem.val());
+                        itemsEaten.push(elem.val());
                     });
+                    this.setState({ itemsEaten: itemsEaten })
                     let totalvalue = 0;
-                    for (i = 0; i < list.length; i++) {
-                        totalvalue = totalvalue + list[i].amount;
+                    for (i = 0; i < itemsEaten.length; i++) {
+                        totalvalue = totalvalue + itemsEaten[i].amount;
                     }
                     this.setState({
                         calories: totalvalue
@@ -117,7 +119,24 @@ export default class Main extends Component {
         )
 
     }
+    renderCard() {
+        return this.state.itemsEaten.map((data) => {
+            return (
+                <Card style={{ padding: 0 }} key={data.id}>
+                    <Block row>
+                        <Block flex={0.3}>
+                            <Image source={require('../assets/images/Achievements/chicken.png')} style={styles.cardImage}></Image>
+                        </Block>
 
+                        <Block flex={1} style={{ padding: theme.sizes.base }}>
+                            <Text size={18} spacing={1} primary>Munchies!</Text>
+                            <Text spacing={0.7}>You have eaten 2134 calories</Text>
+                        </Block>
+                    </Block>
+                </Card>
+            )
+        })
+    }
     render() {
         const { isLoading } = this.state;
         const { navigation } = this.props;
@@ -142,6 +161,7 @@ export default class Main extends Component {
                                             Recent activity
                                 </Text>
                                     </Block>
+                                    {this.renderCard()}
                                     <Card >
                                         <Block center>
                                             <Block row>
@@ -208,6 +228,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 13,
         elevation: 5,
+    },
+    cardImage: {
+        height: 85,
+        width: 85,
     },
     slider: {
         height: window.width / 1.5,

@@ -144,7 +144,7 @@ export default class Statistics extends Component {
 
 const styles = StyleSheet.create({
   item: {
-    marginHorizontal: theme.sizes.base,
+    marginHorizontal: theme.sizes.base/2,
     marginBottom: theme.sizes.base,
   }
 })  
