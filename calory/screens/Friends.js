@@ -10,17 +10,33 @@ export default class Friends extends Component {
     }
     addFriend() {
 
-
-        //const currUser = firebase.auth().currentUser.uid;
         firebase.auth().fetchSignInMethodsForEmail(this.state.friendEmail)
-        .then(result => {
-            if (result.length === 0){
-                console.warn('nono')
-            }
-            else {
-                console.warn('yesyes')
-            }
-        })
+            .then(result => {
+                if (result.length === 0) {
+                    console.warn('This email does not exist')
+                }
+                else {
+                    const currUser = firebase.auth().currentUser.uid;
+                    firebase.database().ref('friends/').child(currUser).orderByChild('email').equalTo(this.state.friendEmail).once('value', snapshot => {
+                        if (snapshot.exists()) {
+                            console.warn('This email is already in your friends list')
+                        }
+                        else {
+                            firebase.database().ref('friends').child(currUser).push({
+                                email: this.state.friendEmail,
+                                name: ''
+                            })
+                        }
+                    })
+
+                }
+            })
+    }
+    renderCards() {
+        firebase.database().ref('')
+        return (
+            <Card><Text></Text></Card>
+        )
     }
     render() {
         return (
@@ -39,9 +55,6 @@ export default class Friends extends Component {
                     <Block style={{ marginBottom: theme.sizes.base / 2 }}>
                         <Text spacing={0.4} transform="uppercase">Recent friend activity</Text>
                     </Block>
-                    <Card><Text>You friend did this :) </Text></Card>
-                    <Card><Text>You friend did this :) </Text></Card>
-                    <Card><Text>You friend did this :) </Text></Card>
                 </Block>
             </ScrollView>
         )
