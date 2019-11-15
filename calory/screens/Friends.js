@@ -6,10 +6,25 @@ import firebase from 'firebase';
 
 export default class Friends extends Component {
     state = {
-        friendEmail: ''
+        friendEmail: '',
+        isLoading: false,
+        friendsList: []
+    }
+    componentDidMount() {
+        this.setState({ isLoading: true });
+        const currUser = firebase.auth().currentUser.uid;
+        firebase.database().ref('friends/' + currUser).orderByChild('email').on('value', (snapshot) => {
+            var friendsList = []
+            snapshot.forEach(function (elem) {
+                friendsList.push(elem.val());
+            });
+            this.setState({ friendsList: friendsList })
+            console.warn(friendsList)
+            this.setState({ isLoading: false });
+        });
+
     }
     addFriend() {
-
         firebase.auth().fetchSignInMethodsForEmail(this.state.friendEmail)
             .then(result => {
                 if (result.length === 0) {
@@ -33,7 +48,7 @@ export default class Friends extends Component {
             })
     }
     renderCards() {
-        firebase.database().ref('')
+        firebase.database().ref('calories/').orderByChild()
         return (
             <Card><Text></Text></Card>
         )
