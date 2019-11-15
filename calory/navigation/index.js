@@ -76,11 +76,11 @@ const statisticsScreen = createStackNavigator({
                 <Text h1 bold>Statistics</Text>,
             headerStyle: {
                 marginLeft: theme.sizes.base * 2,
-                backgroundColor: theme.colors.white,
+                backgroundColor: "Transparent",
                 shadowColor: "Transparent",
                 elevation: 0,
                 shadowRadius: 0,
-                borderBottomColor: "transparent",
+                borderBottomColor: "Transparent",
             }
         },
     },

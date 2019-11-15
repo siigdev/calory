@@ -183,10 +183,7 @@ export default class Main extends Component {
     }
 }
 const styles = StyleSheet.create({
-    trip: {
-        backgroundColor: theme.colors.gray3,
-        padding: theme.sizes.padding
-    }, container: {
+    container: {
         alignSelf: 'center',
         width: window.width,
         height: window.width * 1.5,
