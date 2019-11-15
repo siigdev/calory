@@ -18,7 +18,17 @@ export default class Welcome extends Component {
           <ScrollView style={{ marginVertical: theme.sizes.padding }}>
             <Text caption gray height={24} style={{ marginBottom: theme.sizes.base }}>
               1. Your use of the Service is at your sole risk. The service is provided on an "as is" and "as available" basis.  
+              </Text>
+              <Text caption gray height={24} style={{ marginBottom: theme.sizes.base }}>
+              2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dictum non consectetur a erat nam at lectus urna. Sed risus pretium quam vulputate.
+              </Text>
+              <Text caption gray height={24} style={{ marginBottom: theme.sizes.base }}>
+              3. Magna fermentum iaculis eu non diam phasellus. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Ornare lectus sit amet est placerat in.
             </Text>
+            <Text caption gray height={24} style={{ marginBottom: theme.sizes.base }}>4. Eleifend donec pretium vulputate sapien. Lobortis feugiat vivamus at augue eget arcu. Iaculis urna id volutpat lacus. Vitae congue eu consequat ac felis donec et odio pellentesque.</Text>
+            <Text caption gray height={24} style={{ marginBottom: theme.sizes.base }}>5. Tincidunt nunc pulvinar sapien et ligula ullamcorper. Quis hendrerit dolor magna eget est lorem. Maecenas sed enim ut sem viverra aliquet eget sit amet.</Text>
+            <Text caption gray height={24} style={{ marginBottom: theme.sizes.base }}>6. Fringilla ut morbi tincidunt augue interdum velit euismod. Dapibus ultrices in iaculis nunc sed augue lacus viverra. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim. Tristique sollicitudin nibh sit amet. Cursus euismod quis viverra nibh.</Text>
+          
           </ScrollView>
 
           <Block middle padding={[theme.sizes.base / 2, 0]}>
