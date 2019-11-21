@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import Navigation from './navigation';
-import { Block } from './components';
-import ApiKeys from './constants/ApiKeys';
+import Navigation from './src/navigation';
+import { Block } from './src/components';
+import ApiKeys from './src/constants/ApiKeys';
 import firebase from 'firebase';
-import { AppContextProvider } from './AppContextProvider'
-
-const images = [
-  require('./assets/icons/icon.png')
-]
+import { AppContextProvider } from './src/AppContextProvider'
 
 export default class App extends React.Component {
   render() {
