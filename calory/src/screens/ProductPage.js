@@ -14,9 +14,11 @@ export default class ProductPage extends Component {
     name: '',
     grams: '100',
     calories: '',
-    weight: '75',
-    swimming: '21',
-    walking: ''
+    weight: 75,
+    height: 188,
+    gender: 'Male',
+    age: 26,
+    calorieburn: ''
   }
   componentDidMount() {
 
@@ -32,6 +34,7 @@ export default class ProductPage extends Component {
           isLoading: false,
           dataSource: responseJson.parsed,
         })
+        this.calculateWorkoutTime();
       })
       .catch((error) => {
         console.warn(error)
@@ -44,6 +47,15 @@ export default class ProductPage extends Component {
       amount: this.state.calories*this.state.grams / 100,
       date: firebase.database.ServerValue.TIMESTAMP
     })
+  }
+  calculateWorkoutTime() {
+    if (this.state.gender == 'Male') {
+      BMR = (13.397*this.state.weight)+(4.799*this.state.height)-(5.677*this.state.age)+88.362
+    }
+    else {
+      BMR = (9.247*this.state.weight)+(3.098*this.height)+(4.330*this.state.age)+447.593
+    }
+    this.setState({calorieburn: BMR})
   }
   render() {
     return (
@@ -58,7 +70,7 @@ export default class ProductPage extends Component {
                 textAlign={'center'}
                 keyboardType='phone-pad'
                 defaultValue={this.state.grams}
-                onChangeText={text => this.setState({ grams: text })}
+                onChangeText={text => {this.setState({ grams: text }), this.calculateWorkoutTime()}}
               />
             </Block>
             <Block center flex={1}>
@@ -77,17 +89,17 @@ export default class ProductPage extends Component {
 
           <Block row>
             <Block center flex={1}>
-              <Text size={20} spacing={1} primary>100 KM</Text>
+            <Text size={20} spacing={1} primary>{Math.floor(((this.state.calorieburn/24)/10.0)*0.6*10)} MIN</Text>
               <Text spacing={0.7}>Løb</Text>
             </Block>
 
             <Block center flex={1}>
-              <Text size={20} spacing={1} primary>100 KM</Text>
+              <Text size={20} spacing={1} primary>{Math.floor(((this.state.calorieburn/24)/8.3)*0.6*10)} MIN</Text>
               <Text spacing={0.7}>Svømning</Text>
             </Block>
 
             <Block center flex={1}>
-              <Text size={20} spacing={1} primary>100 KM</Text>
+              <Text size={20} spacing={1} primary>{Math.floor(((this.state.calorieburn/24)/7.5)*0.6*10)} MIN</Text>
               <Text spacing={0.7}>Cykling</Text>
             </Block>
           </Block>
