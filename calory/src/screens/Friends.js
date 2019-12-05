@@ -8,7 +8,8 @@ export default class Friends extends Component {
     state = {
         friendEmail: '',
         isLoading: false,
-        friendsList: []
+        friendsList: [],
+        feedbackState: ''
     }
     componentDidMount() {
         this.setState({ isLoading: true });
@@ -28,13 +29,13 @@ export default class Friends extends Component {
         firebase.auth().fetchSignInMethodsForEmail(this.state.friendEmail)
             .then(result => {
                 if (result.length === 0) {
-                    console.warn('This email does not exist')
+                    this.setState({ feedbackState: 'This email does not exist in the database' })
                 }
                 else {
                     const currUser = firebase.auth().currentUser.uid;
                     firebase.database().ref('friends/').child(currUser).orderByChild('email').equalTo(this.state.friendEmail).once('value', snapshot => {
                         if (snapshot.exists()) {
-                            console.warn('This email is already in your friends list')
+                            this.setState({ feedbackState: 'This email is already in your friends list' })
                         }
                         else {
                             firebase.database().ref('friends').child(currUser).push({
@@ -68,7 +69,7 @@ export default class Friends extends Component {
                         <Text bold white center>Add new friend</Text>
                     </Button>
                     <Block style={{ marginBottom: theme.sizes.base / 2 }}>
-                        <Text spacing={0.4} transform="uppercase">Recent friend activity</Text>
+                        <Text spacing={0.4}>{this.state.feedbackState}</Text>
                     </Block>
                 </Block>
             </ScrollView>
