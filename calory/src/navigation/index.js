@@ -114,8 +114,10 @@ const friendsScreen = createStackNavigator({
 })
 const productScreen = createStackNavigator({
     ProductPage: {
+        visible: false,
         screen: ProductPage,
         navigationOptions: {
+            visible: false,
             headerStyle: {
                 height: 0
             }
@@ -170,7 +172,7 @@ const screens = createBottomTabNavigator({
         },
     },
     settingsScreen: {
-        screen: settingsScreen,
+        screen: settingsScreen, 
         navigationOptions: {
             tabBarIcon: <Ionicons name={'md-settings'} size={25} />,
             title: 'Settings',
@@ -187,7 +189,7 @@ const screens = createBottomTabNavigator({
 export default createAppContainer(createSwitchNavigator(
     {
         AuthLoading: authLoadingScreen,
-        App: screens,
+        App: screens, productScreen,
         Auth: authScreens,
     },
     {
