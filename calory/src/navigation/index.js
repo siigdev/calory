@@ -160,7 +160,7 @@ const screens = createBottomTabNavigator({
     barcodeScreen: {
         screen: barcodeScreen,
         navigationOptions: {
-            tabBarIcon: <Ionicons name={'md-add-circle'} size={45} />,
+            tabBarIcon: <Ionicons name={'md-add-circle'} size={65} />,
             title: '',
         },
     },

@@ -8,6 +8,7 @@ import { AppContextProvider } from './src/AppContextProvider'
 export default class App extends React.Component {
   render() {
     firebase.initializeApp(ApiKeys.FirebaseConfig);
+    console.disableYellowBox = true;
     return (
       <AppContextProvider>
       <Block>

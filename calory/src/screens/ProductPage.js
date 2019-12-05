@@ -20,7 +20,10 @@ export default class ProductPage extends Component {
     height: 188,
     gender: 'Male',
     age: 26,
-    calorieburn: ''
+    calorieburn: '',
+    swim: 0,
+    run: 0,
+    cycle: 0,
   }
   componentDidMount() {
     const data = this.props.navigation.getParam('data', 'error');
@@ -58,7 +61,7 @@ export default class ProductPage extends Component {
       BMR = (13.397 * this.state.weight) + (4.799 * this.state.height) - (5.677 * this.state.age) + 88.362
     }
     else {
-      BMR = (9.247 * this.state.weight) + (3.098 * this.height) + (4.330 * this.state.age) + 447.593
+      BMR = (9.247 * this.state.weight) + (3.098 * this.state.height) - (4.330 * this.state.age) + 447.593
     }
     this.setState({ calorieburn: BMR })
   }
@@ -102,17 +105,17 @@ export default class ProductPage extends Component {
               <Card style={{ padding: theme.sizes.base / 2, marginTop: theme.sizes.base }}>
                 <Block row>
                   <Block center flex={1}>
-                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor(((this.state.calorieburn / 24) / 10.0) * 0.6 * 10)} MIN</Text>
+                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor((this.state.calories * this.state.grams  * 24) / (10.0 * this.state.calorieburn))} MIN</Text>
                     <Text spacing={0.7}>Løb</Text>
                   </Block>
 
                   <Block center flex={1}>
-                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor(((this.state.calorieburn / 24) / 8.3) * 0.6 * 10)} MIN</Text>
+                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor((this.state.calories * this.state.grams  * 24) / (8.3 * this.state.calorieburn))} MIN</Text>
                     <Text spacing={0.7}>Svømning</Text>
                   </Block>
 
                   <Block center flex={1}>
-                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor(((this.state.calorieburn / 24) / 7.5) * 0.6 * 10)} MIN</Text>
+                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor((this.state.calories * this.state.grams  * 24) / (7.5 * this.state.calorieburn))} MIN</Text>
                     <Text spacing={0.7}>Cykling</Text>
                   </Block>
                 </Block>
