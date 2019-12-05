@@ -9,7 +9,7 @@ export default class Friends extends Component {
         friendEmail: '',
         isLoading: false,
         friendsList: [],
-        feedbackState: ''
+        feedbackState: '',
     }
     componentDidMount() {
         this.setState({ isLoading: true });
@@ -20,7 +20,6 @@ export default class Friends extends Component {
                 friendsList.push(elem.val());
             });
             this.setState({ friendsList: friendsList })
-            console.warn(friendsList)
             this.setState({ isLoading: false });
         });
 
@@ -42,6 +41,7 @@ export default class Friends extends Component {
                                 email: this.state.friendEmail,
                                 name: ''
                             })
+                            this.setState({ feedbackState: 'This user is now added to your friends list' })
                         }
                     })
 

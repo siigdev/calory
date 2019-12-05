@@ -145,31 +145,35 @@ const screens = createBottomTabNavigator({
         screen: mainScreen,
         navigationOptions: {
             tabBarIcon: <Ionicons name={'md-home'} size={25} />,
+            title: 'Main',
         },
     },
     statisticsScreen: {
         screen: statisticsScreen,
         navigationOptions: {
             tabBarIcon: <Ionicons name={'md-trophy'} size={25} />,
+            title: 'Statistics',
         },
     },
     barcodeScreen: {
         screen: barcodeScreen,
         navigationOptions: {
             tabBarIcon: <Ionicons name={'md-add-circle'} size={45} />,
+            title: '',
         },
     },
     friendsScreen: {
         screen: friendsScreen,
         navigationOptions: {
             tabBarIcon: <Ionicons name={'md-people'} size={25} />,
+            title: 'Friends',
         },
     },
-    productScreen,
     settingsScreen: {
         screen: settingsScreen,
         navigationOptions: {
             tabBarIcon: <Ionicons name={'md-settings'} size={25} />,
+            title: 'Settings',
         },
     },
 }, {
