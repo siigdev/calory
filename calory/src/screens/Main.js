@@ -88,7 +88,7 @@ export default class Main extends Component {
                                         <Block center>
                                             <AnimatedCircularProgress
                                                 size={150}
-                                                fill={60}
+                                                fill={0}
                                                 lineCap="round"
                                                 duration={1500}
                                                 rotation={0}
@@ -106,7 +106,7 @@ export default class Main extends Component {
                                             </AnimatedCircularProgress>
                                         </Block>
                                         <Block center>
-                                            <Text white h3 small>322</Text>
+                                            <Text white h3 small>0</Text>
                                             <Text white h4 caption transform="uppercase">Burned</Text>
                                         </Block>
                                     </Block>
@@ -129,24 +129,29 @@ export default class Main extends Component {
         require('../assets/images/Achievements/taco.png'),
         require('../assets/images/Achievements/hotdog.png'),
         ]
-        return this.state.itemsEaten.slice(0).reverse().map((data, index) => {
-            var randomImage = randomImages[Math.floor(Math.random() * randomImages.length)]
-            return (
-                <Card style={{ padding: theme.sizes.base/2 }} key={index}>
-                    <Block row>
-                        <Block flex={0.3}>
-                            <Image source={randomImage} style={styles.cardImage}></Image>
-                        </Block>
+        if (this.state.itemsEaten.length == 0) {
+            return <Text style={{ textTransform: 'uppercase' }}> You have no recent activity!</Text>
+        }
+        else {
+            return this.state.itemsEaten.slice(0).reverse().map((data, index) => {
+                var randomImage = randomImages[Math.floor(Math.random() * randomImages.length)]
+                return (
+                    <Card style={{ padding: theme.sizes.base / 2 }} key={index}>
+                        <Block row>
+                            <Block flex={0.3}>
+                                <Image source={randomImage} style={styles.cardImage}></Image>
+                            </Block>
 
-                        <Block flex={1} style={{ padding: theme.sizes.base }}>
-                            <Text size={18} spacing={1} primary>Munchies!</Text>
-                            <Text spacing={0.7}>You have eaten {data.amount} calories</Text>
-                            <Text h4 caption gray spacing={0.7}>{new Date(data.date).toLocaleTimeString()}</Text>
+                            <Block flex={1} style={{ padding: theme.sizes.base }}>
+                                <Text size={18} spacing={1} primary>Munchies!</Text>
+                                <Text spacing={0.7}>You have eaten {data.amount} calories</Text>
+                                <Text h4 caption gray spacing={0.7}>{new Date(data.date).toLocaleTimeString()}</Text>
+                            </Block>
                         </Block>
-                    </Block>
-                </Card>
-            )
-        })
+                    </Card>
+                )
+            })
+        }
     }
     render() {
         const { isLoading } = this.state;

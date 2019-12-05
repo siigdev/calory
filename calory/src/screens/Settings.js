@@ -27,7 +27,7 @@ export default class Settings extends Component {
         const email = firebase.auth().currentUser.email;
 
         firebase.database().ref('users/').child(currUser).once('value', (snapshot) => {
-            this.setState({
+            try {this.setState({
                 gender: snapshot.val().gender,
                 name: snapshot.val().name,
                 weight: snapshot.val().weight+0,
@@ -37,6 +37,16 @@ export default class Settings extends Component {
                 notifications: snapshot.val().notifications,
                 isLoading: false
             })
+        } catch {
+            firebase.database().ref('users/').child(currUser).set({
+                name: '',
+                gender: 'Male',
+                height: 0,
+                weight: 0,
+                notifications: true,
+                newsletter: false,
+            })
+        }
         });
     }
     handleEdit(text) {

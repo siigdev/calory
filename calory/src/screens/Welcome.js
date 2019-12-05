@@ -59,7 +59,7 @@ export default class Welcome extends Component {
               <Image
                 source={item.source}
                 resizeMode="contain"
-                style={{ width, height: height / 2, overflow: 'visible' }}
+                style={{ width, height: height / 3, overflow: 'visible', marginTop: 20 }}
               />
             )}
             onScroll={
@@ -127,7 +127,7 @@ export default class Welcome extends Component {
 }
 Welcome.defaultProps = {
     illustrations: [
-      { id: 1, source: require('../assets/images/illustration_1.png') },
+      { id: 1, source: require('../assets/images/cals.png') },
       { id: 2, source: require('../assets/images/illustration_2.png') },
       { id: 3, source: require('../assets/images/illustration_3.png') },
     ],

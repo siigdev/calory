@@ -23,8 +23,8 @@ export default class ProductPage extends Component {
     calorieburn: ''
   }
   componentDidMount() {
-
     const data = this.props.navigation.getParam('data', 'error');
+    const currUser = firebase.auth().currentUser.uid;
     return fetch(`https://api.edamam.com/api/food-database/parser?upc=${data}&app_id=${appId}&app_key=${appKey}`)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -43,12 +43,15 @@ export default class ProductPage extends Component {
       });
   }
   addToHistory() {
-    const currUser = firebase.auth().currentUser.uid;
+    const { navigation } = this.props;
+      const currUser = firebase.auth().currentUser.uid;
 
-    firebase.database().ref('calories/').child(currUser).push({
-      amount: this.state.calories * this.state.grams / 100,
-      date: firebase.database.ServerValue.TIMESTAMP
-    })
+      firebase.database().ref('calories/').child(currUser).push({
+        amount: this.state.calories * this.state.grams / 100,
+        date: firebase.database.ServerValue.TIMESTAMP
+      })
+
+      navigation.navigate('Main')
   }
   calculateWorkoutTime() {
     if (this.state.gender == 'Male') {
@@ -99,17 +102,17 @@ export default class ProductPage extends Component {
               <Card style={{ padding: theme.sizes.base / 2, marginTop: theme.sizes.base }}>
                 <Block row>
                   <Block center flex={1}>
-                    <Text size={20} spacing={1} style={{color: appConsumer.theme.colors.primary}}>{Math.floor(((this.state.calorieburn / 24) / 10.0) * 0.6 * 10)} MIN</Text>
+                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor(((this.state.calorieburn / 24) / 10.0) * 0.6 * 10)} MIN</Text>
                     <Text spacing={0.7}>Løb</Text>
                   </Block>
 
                   <Block center flex={1}>
-                    <Text size={20} spacing={1} style={{color: appConsumer.theme.colors.primary}}>{Math.floor(((this.state.calorieburn / 24) / 8.3) * 0.6 * 10)} MIN</Text>
+                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor(((this.state.calorieburn / 24) / 8.3) * 0.6 * 10)} MIN</Text>
                     <Text spacing={0.7}>Svømning</Text>
                   </Block>
 
                   <Block center flex={1}>
-                    <Text size={20} spacing={1} style={{color: appConsumer.theme.colors.primary}}>{Math.floor(((this.state.calorieburn / 24) / 7.5) * 0.6 * 10)} MIN</Text>
+                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{Math.floor(((this.state.calorieburn / 24) / 7.5) * 0.6 * 10)} MIN</Text>
                     <Text spacing={0.7}>Cykling</Text>
                   </Block>
                 </Block>
@@ -145,7 +148,7 @@ export default class ProductPage extends Component {
 
                   <Block row center space="between">
                     <Text>Calories in total</Text>
-                    <Text size={20} spacing={1} style={{color: appConsumer.theme.colors.primary}}>{this.state.calories * this.state.grams / 100} kcal.</Text>
+                    <Text size={20} spacing={1} style={{ color: appConsumer.theme.colors.primary }}>{this.state.calories * this.state.grams / 100} kcal.</Text>
                   </Block>
 
                   <Button gradient onPress={() => this.addToHistory()}>
